@@ -1,0 +1,73 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>html,body{margin:0;background:#07051a}svg{display:block}</style></head>
+<body>
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="bg" cx="50%" cy="42%" r="70%">
+    <stop offset="0" stop-color="#5b2d9e"/><stop offset=".5" stop-color="#2f1660"/><stop offset="1" stop-color="#0a0620"/>
+  </radialGradient>
+  <radialGradient id="neb" cx="50%" cy="50%" r="50%">
+    <stop offset="0" stop-color="#e6d6ff" stop-opacity=".55"/><stop offset="1" stop-color="#e6d6ff" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+    <stop offset="0" stop-color="#b98cff" stop-opacity=".5"/><stop offset="1" stop-color="#b98cff" stop-opacity="0"/>
+  </radialGradient>
+  <filter id="sh"><feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="#d9c4ff" flood-opacity=".6"/></filter>
+</defs>
+
+<rect width="1080" height="1920" fill="url(#bg)"/>
+<ellipse cx="760" cy="420" rx="260" ry="90" fill="url(#neb)" transform="rotate(-20 760 420)"/>
+<g fill="#fff" opacity=".8">
+  <circle cx="120" cy="260" r="2"/><circle cx="940" cy="300" r="2.5"/><circle cx="80" cy="820" r="1.8"/><circle cx="1000" cy="1000" r="2"/>
+  <circle cx="160" cy="1450" r="2.4"/><circle cx="930" cy="1650" r="1.8"/><circle cx="300" cy="160" r="1.5"/><circle cx="700" cy="380" r="1.5"/>
+  <circle cx="820" cy="460" r="1.3"/><circle cx="640" cy="440" r="1.2"/><circle cx="60" cy="1200" r="1.4"/><circle cx="560" cy="1800" r="1.6"/>
+</g>
+<text x="26" y="960" font-family="Inter" font-weight="700" font-size="20" fill="#fff" opacity=".35" letter-spacing="6" transform="rotate(-90 26 960)">TU CANAL</text>
+
+<!-- subtítulo -->
+<text x="540" y="300" text-anchor="middle" font-family="Inter" font-weight="500" font-size="58" fill="#fff">Todos <tspan font-weight="800">dicen</tspan></text>
+
+<circle cx="540" cy="1050" r="430" fill="url(#glow)"/>
+
+<!-- PERSONAJE ORIGINAL plano, contorno grueso -->
+<g transform="translate(540 1040)" stroke="#1b1030" stroke-width="12" stroke-linejoin="round" stroke-linecap="round" filter="url(#sh)">
+  <!-- aletas de energía detrás -->
+  <path d="M-90 -170 C-280 -110 -320 140 -230 340 C-190 250 -160 140 -110 60Z" fill="#ff7f6e"/>
+  <path d="M90 -170 C280 -110 320 140 230 340 C190 250 160 140 110 60Z" fill="#ff7f6e"/>
+  <!-- piernas en punta flotando -->
+  <path d="M-70 150 L-40 460 L-5 150Z" fill="#8fe3d4"/>
+  <path d="M70 150 L40 460 L5 150Z" fill="#8fe3d4"/>
+  <!-- brazos -->
+  <path d="M-110 -110 C-210 -60 -240 60 -215 160" fill="none" stroke="#1b1030" stroke-width="44"/>
+  <path d="M-110 -110 C-210 -60 -240 60 -215 160" fill="none" stroke="#8fe3d4" stroke-width="22"/>
+  <path d="M110 -110 C210 -60 240 60 215 160" fill="none" stroke="#1b1030" stroke-width="44"/>
+  <path d="M110 -110 C210 -60 240 60 215 160" fill="none" stroke="#8fe3d4" stroke-width="22"/>
+  <!-- torso cristal -->
+  <path d="M0 -210 L120 -125 L85 170 L0 210 L-85 170 L-120 -125Z" fill="#b9f2e8"/>
+  <path d="M-120 -125 L0 -30 L120 -125" fill="none" stroke-width="6"/>
+  <path d="M-55 95 L0 140 L55 95 L0 40Z" fill="#5fcfbf" stroke-width="7"/>
+  <!-- manos: estrellas de energía -->
+  <path d="M-215 140 l14 30 32 4 -24 21 7 32 -29 -17 -29 17 7 -32 -24 -21 32 -4z" fill="#ffe08a" stroke-width="8"/>
+  <path d="M215 140 l14 30 32 4 -24 21 7 32 -29 -17 -29 17 7 -32 -24 -21 32 -4z" fill="#ffe08a" stroke-width="8"/>
+  <!-- cabeza -->
+  <path d="M0 -420 L95 -360 L82 -250 L0 -215 L-82 -250 L-95 -360Z" fill="#b9f2e8"/>
+  <path d="M-75 -335 H75 L62 -292 H-62Z" fill="#241a3a" stroke-width="8"/>
+  <circle cx="0" cy="-313" r="17" fill="#ff5a4e" stroke="none"/>
+  <circle cx="-5" cy="-318" r="5" fill="#fff" stroke="none"/>
+  <!-- antena + halo roto -->
+  <path d="M0 -420 L0 -470" fill="none" stroke-width="10"/>
+  <circle cx="0" cy="-482" r="14" fill="#ff7f6e" stroke-width="8"/>
+  <path d="M-130 -440 A135 34 0 0 1 70 -470" fill="none" stroke="#ffd36b" stroke-width="14"/>
+  <path d="M100 -465 A135 34 0 0 1 128 -430" fill="none" stroke="#ffd36b" stroke-width="14"/>
+</g>
+
+<!-- sello -->
+<g transform="rotate(-11 540 1260)">
+  <rect x="300" y="1180" width="480" height="165" rx="18" fill="#1a0610" stroke="#ff3550" stroke-width="12"/>
+  <rect x="318" y="1198" width="444" height="129" rx="10" fill="none" stroke="#ff3550" stroke-width="3"/>
+  <text x="540" y="1250" text-anchor="middle" font-family="Inter" font-weight="900" font-size="44" fill="#ff3550" letter-spacing="6">FUERA DEL</text>
+  <text x="540" y="1312" text-anchor="middle" font-family="Inter" font-weight="900" font-size="64" fill="#ff3550" letter-spacing="3">TOP 10</text>
+</g>
+</svg>
+</body></html>
