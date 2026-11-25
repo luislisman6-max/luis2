@@ -1,0 +1,153 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>html,body{margin:0;background:#05060f}svg{display:block}</style></head>
+<body>
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="bg" cx="50%" cy="45%" r="75%">
+    <stop offset="0" stop-color="#16244f"/>
+    <stop offset=".55" stop-color="#0a1030"/>
+    <stop offset="1" stop-color="#03040c"/>
+  </radialGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#fff1b8"/>
+    <stop offset=".35" stop-color="#e0b04a"/>
+    <stop offset=".6" stop-color="#a8742a"/>
+    <stop offset="1" stop-color="#f6d27a"/>
+  </linearGradient>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#f7c873"/>
+    <stop offset=".35" stop-color="#e8836b"/>
+    <stop offset=".62" stop-color="#3f6fa8"/>
+    <stop offset="1" stop-color="#0b2a5c"/>
+  </linearGradient>
+  <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#4d8ff0"/>
+    <stop offset=".6" stop-color="#2459c4"/>
+    <stop offset="1" stop-color="#173a8a"/>
+  </linearGradient>
+  <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+    <stop offset="0" stop-color="#fff6d6"/>
+    <stop offset=".6" stop-color="#ffd27a"/>
+    <stop offset="1" stop-color="#ffb35c" stop-opacity="0"/>
+  </radialGradient>
+  <filter id="grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4"/>
+    <feColorMatrix values="0 0 0 0 1  0 0 0 0 .95  0 0 0 0 .85  0 0 0 .09 0"/>
+    <feComposite in2="SourceGraphic" operator="in"/>
+  </filter>
+  <filter id="glow"><feGaussianBlur stdDeviation="18"/></filter>
+  <clipPath id="art"><rect x="225" y="545" width="630" height="900" rx="14"/></clipPath>
+</defs>
+
+<!-- fondo -->
+<rect width="1080" height="1920" fill="url(#bg)"/>
+<g fill="#fff" opacity=".7">
+  <circle cx="120" cy="300" r="2"/><circle cx="960" cy="260" r="2.5"/><circle cx="80" cy="900" r="1.8"/>
+  <circle cx="1010" cy="1100" r="2"/><circle cx="140" cy="1500" r="2.4"/><circle cx="950" cy="1700" r="1.8"/>
+  <circle cx="300" cy="180" r="1.5"/><circle cx="780" cy="140" r="1.6"/><circle cx="60" cy="1250" r="1.4"/>
+  <circle cx="1030" cy="600" r="1.6"/><circle cx="520" cy="1820" r="1.6"/><circle cx="880" cy="1820" r="2"/>
+</g>
+
+<!-- subtitulo palabra clave -->
+<text x="540" y="235" text-anchor="middle" font-family="Inter" font-weight="500" font-size="54" fill="#e9ecff">Literalmente <tspan font-weight="900" fill="#ffd36b">creó los mares.</tspan></text>
+
+<!-- halo detrás de la carta -->
+<rect x="190" y="400" width="700" height="1220" rx="40" fill="#3f8cff" opacity=".35" filter="url(#glow)"/>
+
+<!-- carta -->
+<g transform="rotate(-2 540 1010)">
+  <rect x="170" y="380" width="740" height="1260" rx="38" fill="#1a1230" stroke="url(#gold)" stroke-width="10"/>
+  <rect x="195" y="405" width="690" height="1210" rx="26" fill="none" stroke="url(#gold)" stroke-width="3"/>
+
+  <!-- numeral -->
+  <path d="M440 470 h200 l20 22 -20 22 h-200 l-20 -22z" fill="#1a1230" stroke="url(#gold)" stroke-width="3"/>
+  <text x="540" y="508" text-anchor="middle" font-family="Caladea" font-weight="700" font-size="46" fill="url(#gold)" letter-spacing="8">IX</text>
+  <circle cx="380" cy="492" r="6" fill="url(#gold)"/><circle cx="700" cy="492" r="6" fill="url(#gold)"/>
+
+  <!-- arte -->
+  <g clip-path="url(#art)">
+    <rect x="225" y="545" width="630" height="900" fill="url(#sky)"/>
+    <!-- rayos -->
+    <g transform="translate(540 820)" fill="#fff3c9" opacity=".28">
+      <path d="M0 0 L-40 -420 L40 -420Z"/><path d="M0 0 L-40 -420 L40 -420Z" transform="rotate(25)"/>
+      <path d="M0 0 L-40 -420 L40 -420Z" transform="rotate(-25)"/><path d="M0 0 L-40 -420 L40 -420Z" transform="rotate(50)"/>
+      <path d="M0 0 L-40 -420 L40 -420Z" transform="rotate(-50)"/><path d="M0 0 L-40 -420 L40 -420Z" transform="rotate(75)"/>
+      <path d="M0 0 L-40 -420 L40 -420Z" transform="rotate(-75)"/>
+    </g>
+    <circle cx="540" cy="820" r="150" fill="url(#sun)"/>
+    <circle cx="540" cy="820" r="78" fill="#fff0c4"/>
+
+    <!-- lluvia -->
+    <g stroke="#cfe6ff" stroke-width="3" opacity=".45" stroke-linecap="round">
+      <line x1="260" y1="600" x2="245" y2="650"/><line x1="330" y1="680" x2="315" y2="730"/>
+      <line x1="760" y1="610" x2="745" y2="660"/><line x1="820" y1="700" x2="805" y2="750"/>
+      <line x1="690" y1="560" x2="675" y2="610"/><line x1="400" y1="580" x2="385" y2="630"/>
+    </g>
+
+    <!-- ola trasera -->
+    <path d="M225 1110 C300 1060 360 1080 420 1050 C480 1020 520 1060 590 1040 C660 1020 720 1070 790 1040 C820 1028 840 1030 855 1035 V1445 H225Z" fill="#1d5aa8"/>
+
+    <!-- KYOGRE -->
+    <g transform="translate(565 1010) scale(.9)">
+      <!-- cola -->
+      <path d="M-230 -10 L-330 -90 L-300 -5 L-340 70 Z" fill="url(#body)" stroke="#0d1f4d" stroke-width="7" stroke-linejoin="round"/>
+      <!-- aleta trasera -->
+      <path d="M-120 60 C-150 150 -140 210 -100 250 L-60 250 C-80 200 -70 130 -40 70Z" fill="url(#body)" stroke="#0d1f4d" stroke-width="7"/>
+      <!-- cuerpo -->
+      <path d="M-250 -10 C-230 -120 -60 -170 90 -150 C210 -135 290 -70 300 10 C305 60 260 95 170 100 C40 110 -120 100 -200 60 C-240 40 -255 20 -250 -10Z"
+            fill="url(#body)" stroke="#0d1f4d" stroke-width="8" stroke-linejoin="round"/>
+      <!-- vientre claro -->
+      <path d="M-200 55 C-90 95 60 100 170 92 C240 88 280 65 292 30 C250 60 120 70 0 66 C-90 62 -160 50 -200 55Z" fill="#dfe9ff" opacity=".9"/>
+      <!-- lineas rojas -->
+      <path d="M-210 -20 C-120 -40 -20 -30 60 -10 C130 8 200 0 260 -30" fill="none" stroke="#e8423a" stroke-width="10" stroke-linecap="round"/>
+      <path d="M260 -30 C275 -10 280 15 270 40" fill="none" stroke="#e8423a" stroke-width="8" stroke-linecap="round"/>
+      <path d="M-60 -95 C-30 -70 10 -62 40 -66" fill="none" stroke="#e8423a" stroke-width="7" stroke-linecap="round"/>
+      <!-- manchas blancas -->
+      <ellipse cx="40" cy="-118" rx="42" ry="17" fill="#fff" stroke="#0d1f4d" stroke-width="4" transform="rotate(-6 40 -118)"/>
+      <ellipse cx="140" cy="-110" rx="36" ry="15" fill="#fff" stroke="#0d1f4d" stroke-width="4" transform="rotate(8 140 -110)"/>
+      <!-- ojo -->
+      <path d="M215 -45 C230 -58 252 -55 260 -42 C245 -38 228 -38 215 -45Z" fill="#ffd34d" stroke="#0d1f4d" stroke-width="4"/>
+      <!-- boca -->
+      <path d="M300 25 C260 38 220 40 180 36" fill="none" stroke="#0d1f4d" stroke-width="5" stroke-linecap="round"/>
+      <!-- aleta frontal grande -->
+      <path d="M40 70 C30 170 50 250 110 300 L190 300 C150 250 140 170 150 85Z" fill="url(#body)" stroke="#0d1f4d" stroke-width="8" stroke-linejoin="round"/>
+      <path d="M70 160 C90 175 120 178 145 172" fill="none" stroke="#e8423a" stroke-width="7" stroke-linecap="round"/>
+      <g fill="#fff" stroke="#0d1f4d" stroke-width="4">
+        <ellipse cx="118" cy="300" rx="16" ry="11"/><ellipse cx="150" cy="303" rx="16" ry="11"/><ellipse cx="182" cy="300" rx="16" ry="11"/>
+      </g>
+    </g>
+
+    <!-- olas frontales estilo grabado -->
+    <g transform="translate(0 -95)">
+    <path d="M225 1280 C280 1230 330 1240 360 1270 C330 1240 330 1200 380 1195 C430 1190 450 1240 430 1265 C480 1225 540 1235 570 1270 C560 1225 600 1200 640 1210 C690 1222 690 1270 660 1285 C720 1240 790 1245 855 1275 V1445 H225Z"
+          fill="#0f3f86" stroke="#eaf4ff" stroke-width="5" stroke-linejoin="round"/>
+    <g fill="none" stroke="#eaf4ff" stroke-width="4" stroke-linecap="round" opacity=".85">
+      <path d="M260 1340 C300 1320 340 1325 370 1345"/><path d="M460 1330 C500 1310 545 1315 575 1340"/>
+      <path d="M660 1345 C700 1325 745 1330 775 1350"/><path d="M330 1400 C370 1382 410 1386 440 1405"/>
+      <path d="M560 1395 C600 1377 640 1381 670 1400"/>
+    </g>
+    <g fill="#ffffff"><circle cx="395" cy="1215" r="7"/><circle cx="655" cy="1225" r="6"/><circle cx="300" cy="1255" r="5"/><circle cx="800" cy="1255" r="6"/></g>
+    <rect x="225" y="1440" width="630" height="120" fill="#0f3f86"/>
+    </g>
+
+    <rect x="225" y="545" width="630" height="900" filter="url(#grain)"/>
+  </g>
+  <rect x="225" y="545" width="630" height="900" rx="14" fill="none" stroke="url(#gold)" stroke-width="4"/>
+
+  <!-- esquinas -->
+  <g fill="url(#gold)">
+    <path d="M225 545 l34 0 l-34 34z"/><path d="M855 545 l-34 0 l34 34z"/>
+    <path d="M225 1445 l34 0 l-34 -34z"/><path d="M855 1445 l-34 0 l34 -34z"/>
+  </g>
+
+  <!-- nombre -->
+  <path d="M300 1490 h480 l24 40 -24 40 h-480 l-24 -40z" fill="#1a1230" stroke="url(#gold)" stroke-width="4"/>
+  <text x="540" y="1547" text-anchor="middle" font-family="Caladea" font-weight="700" font-size="56" fill="url(#gold)" letter-spacing="10">EL MAR</text>
+</g>
+
+<!-- nombre pokemon -->
+<text x="540" y="1760" text-anchor="middle" font-family="Inter" font-weight="900" font-size="70" fill="#fff" letter-spacing="4">KYOGRE</text>
+<text x="540" y="1815" text-anchor="middle" font-family="Inter" font-weight="700" font-size="30" fill="#ffd36b" letter-spacing="6">#9 · TOP 10</text>
+</svg>
+</body></html>
