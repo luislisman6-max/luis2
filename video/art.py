@@ -324,8 +324,8 @@ PW, PH = 640, 980   # lienzo del personaje
 
 def person(skin=(241, 194, 160), hair=(110, 68, 40), hair_style='short', shirt=(70, 130, 220),
            eyes='open', look=(0, 0), mouth='flat', cheeks=0.0, sweat=False, belly=0.0,
-           arms='down', brows='normal', shake=0.0, body=True):
-    s = 2
+           arms='down', brows='normal', shake=0.0, body=True, res=1):
+    s = 2 * res
     im = Image.new('RGBA', (PW * s, PH * s), (0, 0, 0, 0))
     d = ImageDraw.Draw(im)
     def B(x0, y0, x1, y1): return [x0 * s, y0 * s, x1 * s, y1 * s]
@@ -443,7 +443,7 @@ def person(skin=(241, 194, 160), hair=(110, 68, 40), hair_style='short', shirt=(
         d.polygon([P(452, 160), P(436, 205), P(468, 205)], fill=(170, 225, 255, 255))
         d.ellipse(B(434, 190, 470, 228), fill=(170, 225, 255, 255))
         d.ellipse(B(444, 198, 454, 210), fill=(255, 255, 255, 255))
-    return im.resize((PW, PH), Image.LANCZOS)
+    return im.resize((PW * res, PH * res), Image.LANCZOS)
 
 
 # ---- bacterias (personajes) ----
