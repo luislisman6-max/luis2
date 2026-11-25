@@ -1031,4 +1031,4 @@ if (mode === 'meta') {
     }
   })();
 }
-module.exports = { C };
+module.exports = { C, drawCup, drawAmphipod, drawAtolla, drawSnailfish, arrow, text, circle, glow, noGlow, roundRect, rng, clamp, lerp };
