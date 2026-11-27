@@ -1,5 +1,5 @@
-// VEGETA, EL RIVAL — motor + escenas + efectos + subtítulos (voz 90.96 s)
-const END = 91.1;
+// ZORO Y EL GPS — motor + escenas + efectos + subtítulos (voz 1.2x, 78.0 s)
+const END = 78.0;
 const tl = gsap.timeline({ paused: true });
 const SFX = []; window.SFX = SFX;
 const sfx = (t, n, v = 1) => SFX.push([+t.toFixed(3), n, v]);
@@ -194,382 +194,423 @@ function speedLines(id, col = '#fff') {
 }
 function zoomLines(t0, t1, id) { tl.set('#' + id, { opacity: 1 }, t0); ft(`#${id} .sl`, { x: 300 }, { x: -700, duration: t1 - t0, ease: 'none' }, t0); tl.set('#' + id, { opacity: 0 }, t1); }
 
+
 // ---------- personajes (mismas opciones que la hoja de personajes)
-const OG = { ...GI, top: 'goku', emblem: '悟', skin: GSKIN, hair: 'goku', hairC: '#17151a', hairHi: '#6c6a80', iris: '#1d1c22', mouth: 'smile' };
-const OG_SSJ = { ...GI, top: 'goku', emblem: '亀', skin: GSKIN, hair: 'ssj', hairC: '#ffd23a', hairHi: '#fff6c4', brow: '#e0a91c', iris: '#18a39a', angry: true, mouth: 'grit', aura: '#ffd84a' };
-const OG_DIOS = { ...GI, top: 'goku', emblem: '悟', skin: '#f3c9a2', hair: 'goku', hairScale: .9, hairC: '#d6283f', hairHi: '#ff8a9a', brow: '#b81f33', iris: '#c4283a', calm: true, aura: '#ff3d5a', auraOp: .4 };
-const OG_BLUE = { ...GI, top: 'goku', emblem: '悟', skin: GSKIN, hair: 'ssj', hairC: '#39b6f2', hairHi: '#c9f0ff', brow: '#1f8fd0', iris: '#2a7fd8', angry: true, mouth: 'smirk', aura: '#3fc3ff' };
-const OG_UI = { ...GI, top: 'bare', topC: GSKIN, abs: true, sleeve: 'none', skin: GSKIN, hair: 'ui', hairC: '#dfe3ee', hairHi: '#ffffff', brow: '#aab3c6', iris: '#b9c3d6', noPupil: true, calm: true, aura: '#cfd8ff', auraOp: .35 };
-const OV = { ...SAIYAN, armor: '#e6b43a', pads: '#e6b43a', skin: GSKIN, hair: 'vegeta', hairC: '#17151a', hairHi: '#6c6a80', iris: '#1d1c22', angry: true, mouth: 'smirk' };
-const OV_SSJ = { ...OV, hairC: '#ffd23a', hairHi: '#fff6c4', brow: '#e0a91c', iris: '#18a39a', aura: '#ffd84a', auraOp: .4 };
-const OV_BLUE = { ...SAIYAN, armor: '#e6b43a', skin: GSKIN, hair: 'vegeta', hairC: '#39b6f2', hairHi: '#c9f0ff', brow: '#1f8fd0', iris: '#2a7fd8', angry: true, mouth: 'grit', aura: '#3fc3ff' };
-const OV_MAJIN = { ...SAIYAN, sleeve: 'none', skin: GSKIN, hair: 'vegeta', hairC: '#ffd23a', hairHi: '#fff6c4', brow: '#e0a91c', iris: '#18a39a', angry: true, veins: true, majinM: true, mouth: 'smirk', aura: '#ffd84a', auraOp: .4 };
-const OWHIS = { topC: '#6e1d2c', bottom: '#6e1d2c', robe: '#17151c', sleeve: 'long', cuff: '#17151c', skin: '#a8c3e8', shoes: '#f4f2ec', hair: 'none', iris: '#7b4fc0', calm: true, mouth: 'smile', lips: '#7b4fc0', ring: '#2f9be6', headExtra: whisHair, over: whisStaff };
-const OTU = { top: 'tank', topC: '#d8323a', bottom: '#b67b52', bare: true, shorts: '#1f2026', skin: '#b67b52', hair: 'none', headExtra: `<path d="M153,144 Q148,84 200,82 Q252,84 247,144 Q240,112 200,110 Q160,112 153,144 Z" fill="#1f1b22" stroke="${OL}" stroke-width="3"/>`, iris: '#1d1c22', bib: '07', shoes: '#f4f2ec', sole: '#d8323a', angry: true, mouth: 'grit' };
-const ORIV = { top: 'tank', topC: '#2f74c8', bottom: '#e0b48a', bare: true, shorts: '#1f2026', skin: '#e0b48a', hair: 'none', headExtra: `<path d="M152,146 Q144,76 200,74 Q258,76 248,146 Q246,108 228,100 L222,118 L210,98 L196,118 L186,98 L174,116 Q156,112 152,146 Z" fill="#5a3a22" stroke="${OL}" stroke-width="3"/>`, iris: '#1d1c22', bib: '23', shoes: '#f4f2ec', sole: '#2f74c8', angry: true, mouth: 'smirk' };
+const OZ = { ...ZORO, mid: zoroCoat(), over: swordsFront() };
+const OZ_LOST = { ...ZORO, angry: false, lookX: -4, mouth: 'flat', mid: zoroCoat(), over: swordsFront() };
+const OZ_AURA = { ...ZORO, behind: aura('#4fe07a', .4) + swordsBack(), mid: zoroCoat(), over: swordsFront() };
+const OZ_HAKI = { ...ZORO, behind: aura('#2a0f3a', .85) + swordsBack(), mid: zoroCoat(), over: swordsFront(), iris: '#a01828' };
+const OTU = { ...HOOD, calm: true, mouth: 'flat', lookY: 4, lookX: 2, over: phone };
+const OTU_MAP = { ...HOOD, angry: true, mouth: 'grit', aura: '#ffd23a', auraOp: .3, over: mapPaper };
+const OTU_WALK = { ...HOOD, angry: true, mouth: 'smirk' };
+const OTU_OLD = { ...HOOD, headExtra: youHair.replace('#4a2f1e', '#c9c9d1'), calm: true, mouth: 'smile',
+  over: `<path d="M268,410 L292,616" stroke="${OL}" stroke-width="13" stroke-linecap="round"/><path d="M268,410 L292,616" stroke="#8a5a2e" stroke-width="8" stroke-linecap="round"/><path d="M262,406 Q262,384 284,386" fill="none" stroke="${OL}" stroke-width="13" stroke-linecap="round"/><path d="M262,406 Q262,384 284,386" fill="none" stroke="#8a5a2e" stroke-width="8" stroke-linecap="round"/>` };
+const OTAXI = { top: 'suit', topC: '#2e3a52', sleeve: 'long', bottom: '#23252e', shoes: '#16161c', skin: '#efc29c', hair: 'none', headExtra: capTaxi, iris: '#4a5a7a', mouth: 'smile',
+  over: `<path d="M178,224 L200,262 L222,224" fill="#e9e6df" stroke="${OL}" stroke-width="2.6"/><path d="M196,236 L204,236 L206,300 L200,310 L194,300 Z" fill="#8e1f27" stroke="${OL}" stroke-width="2"/>` };
+
+// caminar: balanceo + rebote + pasos
+function walk(id, t0, t1, per = .3, vol = .3, tilt = 3) {
+  let k = 0;
+  for (let t = t0; t < t1 - .05; t += per, k++) {
+    tl.to(RIGS[id], { r: k % 2 ? -tilt : tilt, duration: per / 2, ease: 'sine.inOut' }, t);
+    ft(RIGS[id], { y: 0 }, { y: -10, duration: per / 2, ease: 'sine.out', yoyo: true, repeat: 1 }, t);
+    if (vol) sfx(t + per * .45, 'step', vol);
+  }
+  tl.to(RIGS[id], { r: 0, duration: .15 }, t1 - .1);
+}
+// trazo que se dibuja (stroke-dashoffset)
+function drawPath(sel, t, d, len = 3000) { ft(sel, { attr: { 'stroke-dasharray': len, 'stroke-dashoffset': len } }, { attr: { 'stroke-dashoffset': 0 }, duration: d, ease: 'power1.inOut' }, t); }
+
+// ---------- utilería de este video
+const QM = (x, y) => `<g font-family="Anton" fill="#ffd23a" stroke="${OLc}" stroke-width="8" paint-order="stroke">${TXT(x, y, 130, '?', '#ffd23a', 'Anton', `stroke="#000" stroke-width="10" paint-order="stroke" transform="rotate(14 ${x} ${y})"`)}${TXT(x + 90, y + 70, 90, '?', '#ffd23a', 'Anton', `stroke="#000" stroke-width="9" paint-order="stroke" transform="rotate(24 ${x + 90} ${y + 70})"`)}${TXT(x - 300, y + 30, 100, '?', '#ffd23a', 'Anton', `stroke="#000" stroke-width="9" paint-order="stroke" transform="rotate(-16 ${x - 300} ${y + 30})"`)}</g>`;
+const CHECK = (x, y, r = 46) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#22b35a" stroke="#fff" stroke-width="8"/><path d="M${x - r * .5},${y} L${x - r * .1},${y + r * .4} L${x + r * .55},${y - r * .42}" fill="none" stroke="#fff" stroke-width="${r * .26}" stroke-linecap="round" stroke-linejoin="round"/>`;
+const CROSS = (x, y, r = 46) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#e0283a" stroke="#fff" stroke-width="8"/><path d="M${x - r * .42},${y - r * .42} L${x + r * .42},${y + r * .42} M${x + r * .42},${y - r * .42} L${x - r * .42},${y + r * .42}" stroke="#fff" stroke-width="${r * .26}" stroke-linecap="round"/>`;
+// carretera en perspectiva con la LÍNEA RECTA en el centro
+function road(p) {
+  let s = radBg('#2f6b45', '#06140c', '#8fffb4', '#000');
+  s += `<rect y="880" width="1080" height="1040" fill="#173523"/>`;
+  s += `<path d="M470,880 L610,880 L1240,1920 L-160,1920 Z" fill="#3b3f4c"/><path d="M470,880 L490,880 L-100,1920 L-160,1920 Z M590,880 L610,880 L1240,1920 L1180,1920 Z" fill="#e8e4da" opacity=".7"/>`;
+  s += `<path id="${p}line" d="M534,880 L546,880 L566,1920 L514,1920 Z" fill="#ffd23f"/>`;
+  for (let i = 0; i < 9; i++) s += `<circle cx="${R(40, 400).toFixed(0)}" cy="${R(900, 1200).toFixed(0)}" r="${R(30, 70).toFixed(0)}" fill="#1f4a2e" opacity=".9"/><circle cx="${R(700, 1060).toFixed(0)}" cy="${R(900, 1200).toFixed(0)}" r="${R(30, 70).toFixed(0)}" fill="#1f4a2e" opacity=".9"/>`;
+  return s;
+}
+const ship = (x, y) => `<g transform="translate(${x},${y})"><path d="M-170,0 L170,0 L130,80 L-130,80 Z" fill="#8a5a2e" stroke="#000" stroke-width="7" stroke-linejoin="round"/><rect x="-170" y="-14" width="340" height="18" fill="#6a4220" stroke="#000" stroke-width="6"/>
+  <line x1="0" y1="-14" x2="0" y2="-300" stroke="#000" stroke-width="16"/><line x1="0" y1="-14" x2="0" y2="-300" stroke="#a87444" stroke-width="9"/>
+  <path d="M-110,-270 Q0,-250 110,-270 L120,-60 Q0,-40 -120,-60 Z" fill="#f4ead2" stroke="#000" stroke-width="6" stroke-linejoin="round"/><path d="M0,-300 L70,-316 L0,-330 Z" fill="#15121a" stroke="#000" stroke-width="4"/>
+  ${[-110, -40, 30, 100].map(c => `<circle cx="${c}" cy="40" r="11" fill="#3a2410" stroke="#000" stroke-width="4"/>`).join('')}</g>`;
+const sea = `<rect y="1000" width="1080" height="430" fill="#1d5a8a"/>${Array.from({ length: 10 }, (_, i) => `<path d="M${-40 + i * 120},${1060 + (i % 3) * 110} q30,-18 60,0 t60,0" fill="none" stroke="#bfe6ff" stroke-width="6" opacity=".6"/>`).join('')}`;
+function brain(id, cx, cy, s, crack = false) {
+  const g = `<g transform="translate(${cx},${cy}) scale(${s})">
+    <path d="M-260,40 C-290,-120 -150,-230 0,-222 C150,-232 292,-140 272,10 C300,92 232,172 140,160 C118,214 40,226 0,198 L-16,262 L-62,254 L-50,192 C-150,204 -252,152 -260,40 Z" fill="#f4a6bd" stroke="#000" stroke-width="9" stroke-linejoin="round"/>
+    <path d="M150,-160 C232,-120 300,-40 250,70 C232,120 190,150 140,160 C200,90 214,-40 150,-160 Z" fill="#000" opacity=".12"/>
+    <path d="M-200,-60 C-160,-120 -90,-80 -60,-130 M-30,-170 C10,-120 70,-150 100,-110 M140,-60 C190,-60 210,-10 230,0 M-220,60 C-170,40 -150,100 -100,80 M-60,-20 C-20,-60 40,-20 80,-50 M100,40 C150,30 170,90 210,80 M-160,140 C-120,110 -60,150 -30,130" fill="none" stroke="#c4587a" stroke-width="9" stroke-linecap="round"/>
+    <g id="${id}hip"><path d="M-70,60 C-40,10 50,18 66,64 C80,108 34,132 10,110 C-8,94 14,76 32,86" fill="none" stroke="#ffb800" stroke-width="40" stroke-linecap="round" opacity=".45" filter="url(#blur8)"/>
+      <path d="M-70,60 C-40,10 50,18 66,64 C80,108 34,132 10,110 C-8,94 14,76 32,86" fill="none" stroke="#000" stroke-width="30" stroke-linecap="round"/>
+      <path d="M-70,60 C-40,10 50,18 66,64 C80,108 34,132 10,110 C-8,94 14,76 32,86" fill="none" stroke="#ffd23f" stroke-width="20" stroke-linecap="round"/></g>
+    ${crack ? `<g id="${id}crk" opacity="0"><path d="M-120,-200 L-90,-120 L-130,-60 L-80,10 L-110,90 M90,-210 L60,-130 L110,-70 L70,0 L120,60 M-10,-90 L20,-30 L-20,30" fill="none" stroke="#e0283a" stroke-width="14" stroke-linejoin="round" stroke-linecap="round"/></g>` : ''}</g>`;
+  return pg(id, cx, cy, g);
+}
+const cab = (x, y) => `<g transform="translate(${x},${y})"><path d="M-260,-40 Q-250,-150 -150,-170 L-110,-260 Q-60,-300 60,-300 Q130,-300 160,-250 L200,-170 Q270,-160 270,-80 L270,-10 L-260,-10 Z" fill="#17171e" stroke="#000" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M-96,-250 Q-60,-280 0,-280 L0,-180 L-130,-180 Z M20,-280 Q120,-280 148,-240 L176,-180 L20,-180 Z" fill="#9fd0ef" stroke="#000" stroke-width="6" stroke-linejoin="round"/>
+  <rect x="-40" y="-336" width="90" height="38" rx="8" fill="#ffd23f" stroke="#000" stroke-width="6"/>${TXT(5, -306, 30, 'TAXI', '#000', 'Anton')}
+  <rect x="210" y="-120" width="50" height="30" rx="8" fill="#fff6c4" stroke="#000" stroke-width="5"/><path d="M-250,-80 L270,-80" stroke="#444" stroke-width="5"/>
+  ${[-150, 150].map(c => `<circle cx="${c}" cy="-10" r="62" fill="#111" stroke="#000" stroke-width="8"/><circle cx="${c}" cy="-10" r="28" fill="#9aa4b8" stroke="#000" stroke-width="5"/>`).join('')}</g>`;
+const bigBen = `<g opacity=".95"><rect x="800" y="560" width="140" height="870" fill="#2a2450" stroke="#0a0820" stroke-width="6"/><path d="M790,560 L870,380 L950,560 Z" fill="#2a2450" stroke="#0a0820" stroke-width="6"/><line x1="870" y1="380" x2="870" y2="320" stroke="#2a2450" stroke-width="10"/>
+  <circle cx="870" cy="650" r="54" fill="#f5e3a0" stroke="#0a0820" stroke-width="8"/><path d="M870,650 L870,612 M870,650 L898,660" stroke="#0a0820" stroke-width="7" stroke-linecap="round"/></g>`;
+function bubble(x, y, w, h, inner) { return `<g><circle cx="${x - w * .2}" cy="${y + h * .62}" r="14" fill="#fff" stroke="#000" stroke-width="5"/><circle cx="${x - w * .28}" cy="${y + h * .8}" r="8" fill="#fff" stroke="#000" stroke-width="4"/><ellipse cx="${x}" cy="${y}" rx="${w / 2}" ry="${h / 2}" fill="#fff" stroke="#000" stroke-width="7"/>${inner}</g>`; }
+const shop = (x, y) => `<g transform="translate(${x},${y})"><rect x="-70" y="-40" width="140" height="110" fill="#f4ead2" stroke="#000" stroke-width="6"/><path d="M-84,-40 L84,-40 L74,-90 L-74,-90 Z" fill="#e0283a" stroke="#000" stroke-width="6"/><path d="M-50,-90 L-56,-40 M-20,-90 L-20,-40 M20,-90 L20,-40 M50,-90 L56,-40" stroke="#fff" stroke-width="10"/><rect x="-24" y="10" width="48" height="60" fill="#8a5a2e" stroke="#000" stroke-width="5"/></g>`;
+const bridge = (x, y) => `<g transform="translate(${x},${y})"><path d="M-110,40 L-110,-10 Q0,-90 110,-10 L110,40 L80,40 Q0,-30 -80,40 Z" fill="#c9ccd6" stroke="#000" stroke-width="6" stroke-linejoin="round"/><rect x="-124" y="-24" width="248" height="16" rx="6" fill="#8a8ea0" stroke="#000" stroke-width="5"/><path d="M-110,60 q20,-10 40,0 t40,0 t40,0 t40,0 t40,0" fill="none" stroke="#6fd3ff" stroke-width="7"/></g>`;
+const corner = (x, y) => `<g transform="translate(${x},${y})"><rect x="-8" y="-100" width="16" height="170" fill="#9aa4b8" stroke="#000" stroke-width="5"/><rect x="-90" y="-110" width="120" height="40" rx="6" fill="#22b35a" stroke="#000" stroke-width="5"/><rect x="-20" y="-66" width="120" height="40" rx="6" fill="#2f74c8" stroke="#000" stroke-width="5"/><path d="M-60,-90 L0,-90 M10,-46 L70,-46" stroke="#fff" stroke-width="7" stroke-linecap="round"/></g>`;
+const cloud = (x, y) => `<g transform="translate(${x},${y})"><path d="M-110,30 Q-130,-20 -80,-30 Q-70,-80 -10,-70 Q30,-110 70,-60 Q130,-60 120,0 Q140,40 90,40 L-80,40 Q-120,40 -110,30 Z" fill="#f4f6ff" stroke="#000" stroke-width="7" stroke-linejoin="round"/></g>`;
+const house = (x, y) => `<g transform="translate(${x},${y})"><path d="M-90,0 L0,-80 L90,0 Z" fill="#e0283a" stroke="#000" stroke-width="7" stroke-linejoin="round"/><rect x="-70" y="0" width="140" height="100" fill="#f4ead2" stroke="#000" stroke-width="7"/><rect x="-20" y="40" width="40" height="60" fill="#8a5a2e" stroke="#000" stroke-width="5"/></g>`;
+const flagTag = (x, y, txt, col) => `<g transform="translate(${x},${y})"><rect x="-120" y="-34" width="240" height="68" rx="14" fill="${col}" stroke="#000" stroke-width="6"/>${TXT(0, 18, 46, txt, '#fff', 'Anton')}</g>`;
 
 // =============================================================== ESCENAS (markup)
 let M = defs + `<g id="camS"><g id="camZ">`;
 const GY = 1430;
-// 1 y 16 · gancho / final en bucle: Goku Ultra Instinto + entra Vegeta
+// 1 y 17 · gancho / final en bucle: Zoro se sale de la línea recta + "tú" con el GPS
 function hook(p) {
-  return `<g id="${p}" opacity="0">${radBg('#3a3f6e', '#0b0c1c', '#cfd8ff', '#05060f')}${flr(540, GY + 4, 260)}
-    ${actor(p + 'G', OG_UI, 540, GY, 1.62, ['stand'])}
-    <g id="${p}Vw" opacity="0">${actor(p + 'V', OV, 800, GY, 1.38, ['cross'])}</g></g>`;
+  return `<g id="${p}" opacity="0">${road(p)}${flr(540, GY + 4, 230)}
+    ${actor(p + 'Z', OZ_LOST, 540, GY, 1.32, ['stand', 'scratch'])}
+    ${pg(p + 'q', 760, 560, QM(820, 560))}
+    <g id="${p}Tw" opacity="0">${flr(250, GY + 4, 170)}${actor(p + 'T', OTU, 250, GY, 1.05, ['phone'])}</g></g>`;
 }
 M += hook('s1');
-// sello "LA CIENCIA" (matraz)
-M += pg('s1sci', 540, 560, `<circle cx="540" cy="560" r="150" fill="url(#yelGlow)" opacity=".6"/><path d="M500,440 L500,520 L430,650 Q420,680 450,680 L630,680 Q660,680 650,650 L580,520 L580,440 Z" fill="#d6f4ff" stroke="#000" stroke-width="8" stroke-linejoin="round"/><path d="M462,600 L618,600 L650,652 Q656,672 632,672 L448,672 Q424,672 430,652 Z" fill="#3fd17a"/><rect x="486" y="426" width="108" height="24" rx="8" fill="#9aa4b8" stroke="#000" stroke-width="6"/><circle cx="520" cy="630" r="10" fill="#fff" opacity=".8"/><circle cx="560" cy="648" r="7" fill="#fff" opacity=".8"/>`);
-// 2 · Vegeta lo alcanza, Goku sube de nivel
-M += `<g id="s2" opacity="0">${wasteland()}${flr(330, GY + 4)}${flr(780, GY + 4)}
-  ${actor('s2V', OV, 780, GY, 1.25, ['stand', 'guard'], '', true)}
-  ${actor('s2G', OG, 330, GY, 1.3, ['stand'])}${actor('s2G2', OG_SSJ, 330, GY, 1.3, ['guard'])}
-  ${speedLines('s2sl')}
-  ${pg('s2up', 330, 470, `<path d="M330,560 L330,420" stroke="#ffd23f" stroke-width="20" stroke-linecap="round"/><path d="M280,470 L330,410 L380,470" fill="none" stroke="#ffd23f" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>`)}</g>`;
-// 3 · escalera de transformaciones
-const STEP = i => ({ x: 20 + i * 240, y: 1520 - i * 225 });
-let stairs = '';
-for (let i = 0; i < 4; i++) { const { x, y } = STEP(i); stairs += `<rect x="${x}" y="${y}" width="262" height="${1920 - y}" fill="${['#3a2f6b', '#46397f', '#524393', '#5e4da7'][i]}" stroke="#120d2a" stroke-width="6"/><rect x="${x}" y="${y}" width="262" height="18" fill="#fff" opacity=".18"/>`; }
-const GFORMS = [OG_SSJ, OG_DIOS, OG_BLUE, OG_UI], GNAMES = ['SUPER SAIYAJIN', 'DIOS', 'BLUE', 'ULTRA INSTINTO'], GCOL = ['#ffd23a', '#ff4a5a', '#39b6f2', '#e6ebf5'];
-M += `<g id="s3" opacity="0">${radBg('#4a3a8a', '#120c2a', '#ffd23f', '#120c2a')}${stairs}
-  ${GFORMS.map((o, i) => { const { x, y } = STEP(i); return `<g id="s3g${i}w" opacity="0">${actor('s3g' + i, o, x + 132, y, .74, [i % 2 ? 'stand' : 'guard'])}</g>`; }).join('')}
-  ${[OV, OV_BLUE, OV_BLUE].map((o, i) => { const { x, y } = STEP(i); return `<g id="s3v${i}w" opacity="0">${actor('s3v' + i, o, x + 96, y, .68, ['guard'])}</g>`; }).join('')}
-  ${pg('s3loop', 540, 900, `<path d="M380,760 A200,200 0 1,1 380,1040" fill="none" stroke="#ffd23f" stroke-width="18" stroke-linecap="round"/><path d="M340,1000 L380,1046 L420,1004" fill="none" stroke="#ffd23f" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>`)}
-</g>`;
-// 4 · cara a cara: RIVALIDAD
-let bolt = '';
-for (let i = 0; i < 3; i++) { let y = 560 + i * 18, d = `M540,${y}`; for (let k = 1; k <= 8; k++) { y += 100; d += ` L${(540 + R(-50, 50)).toFixed(0)},${y}`; } bolt += `<path d="${d}" fill="none" stroke="${i ? '#7fdcff' : '#fff'}" stroke-width="${i ? 6 : 12}" stroke-linejoin="round" filter="url(#glowB)"/>`; }
-M += `<g id="s4" opacity="0"><rect width="540" height="1920" fill="#e8742a"/><rect x="540" width="540" height="1920" fill="#22346f"/>${radBg('#ffffff00', '#00000088', '#fff', '#000').replace('<rect width="1080" height="1920"', '<rect width="1080" height="1920" opacity=".55"')}
-  ${actor('s4G', OG, 290, GY, 1.32, ['guard'])}${actor('s4V', OV, 800, GY, 1.32, ['guard'], '', true)}
-  <g id="s4b" opacity="0">${bolt}</g>${pg('s4vs', 540, 1000, `<circle cx="540" cy="1000" r="92" fill="#ffd23f" stroke="#000" stroke-width="10"/>${TXT(540, 1036, 100, 'VS', '#000', 'Anton')}`)}</g>`;
-// 5 · universidad de Nueva York
-M += `<g id="s5" opacity="0">${nightBg()}
-  <g id="s5uni"><path d="M240,760 L540,600 L840,760 Z" fill="#d9d2c0" stroke="#000" stroke-width="8" stroke-linejoin="round"/><rect x="250" y="760" width="580" height="40" fill="#cfc8b4" stroke="#000" stroke-width="7"/>
-   ${[0, 1, 2, 3, 4, 5].map(i => `<rect x="${280 + i * 92}" y="800" width="46" height="500" fill="#ebe5d6" stroke="#000" stroke-width="6"/>`).join('')}<rect x="230" y="1300" width="620" height="60" fill="#cfc8b4" stroke="#000" stroke-width="7"/><rect x="200" y="1360" width="680" height="70" fill="#bdb5a0" stroke="#000" stroke-width="7"/>
-   ${TXT(540, 730, 46, 'UNIVERSIDAD', '#3a3426', 'Oswald')}<rect x="500" y="660" width="80" height="12" fill="#3a3426" opacity=".3"/></g>
-  ${pg('s5clip', 820, 1040, `<g transform="rotate(8 820 1040)"><rect x="680" y="840" width="280" height="380" rx="16" fill="#8a5a2e" stroke="#000" stroke-width="8"/><rect x="705" y="880" width="230" height="320" fill="#fbf7ea" stroke="#000" stroke-width="5"/><rect x="770" y="824" width="100" height="40" rx="8" fill="#b8bcc6" stroke="#000" stroke-width="6"/>
-     <polyline points="725,1160 770,1110 810,1130 850,1050 905,980" fill="none" stroke="#e0283a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>${[0, 1, 2].map(i => `<rect x="725" y="${910 + i * 34}" width="${170 - i * 30}" height="10" rx="5" fill="#9aa"/>`).join('')}</g>`)}
-  ${pg('s5ok', 940, 860, `<circle cx="940" cy="860" r="56" fill="#22b35a" stroke="#fff" stroke-width="8"/><path d="M912,860 L934,884 L972,836" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>`)}</g>`;
-// 6 · miles de resultados
-const NAMES = ['M. GARCÍA', 'J. SMITH', 'A. ROSSI', 'L. CHEN', 'K. MÜLLER', 'P. SILVA', 'T. KIM', 'R. DIAZ', 'S. COHEN', 'E. NAKA'];
-M += `<g id="s6" opacity="0">${track('s6')}<rect width="1080" height="1920" fill="#000" opacity=".45"/>
-  <g id="s6tab"><rect x="90" y="400" width="900" height="900" rx="24" fill="#0c1226" stroke="#5fb0ff" stroke-width="5"/>${TXT(540, 470, 48, 'RESULTADOS · CARRERAS', '#5fb0ff')}
-   <clipPath id="s6clip"><rect x="110" y="500" width="860" height="780"/></clipPath><g clip-path="url(#s6clip)"><g id="s6rows">
-   ${Array.from({ length: 40 }, (_, i) => `<g><rect x="120" y="${510 + i * 78}" width="840" height="64" rx="10" fill="${i % 2 ? '#141c36' : '#18213f'}"/>${TXT(190, 553 + i * 78, 32, String(i + 1).padStart(2, '0'), '#7b8ab8')}${TXT(420, 553 + i * 78, 32, NAMES[i % 10], '#e8eef8')}${TXT(800, 553 + i * 78, 32, `${4 + (i % 3)}:${String(10 + (i * 7) % 50).padStart(2, '0')} /KM`, '#ffd23f')}</g>`).join('')}</g></g></g>
-  ${pg('s6cnt', 540, 1380, `<rect x="300" y="1330" width="480" height="96" rx="18" fill="#ffd23f" stroke="#000" stroke-width="6"/><text id="s6num" x="540" y="1402" font-family="Anton" font-size="68" text-anchor="middle" fill="#000">0</text>`)}</g>`;
-// 7 · la carrera con el rival
-const TX = 540, TS = 1.25;
-M += `<g id="s7" opacity="0">${track('s7')}${speedLines('s7sl')}${flr(TX, GY + 6, 220)}
-  <g id="s7Rw" opacity="0">${flr(820, GY + 6, 200)}${actor('s7R', ORIV, 820, GY, TS, ['run2', 'run'])}</g>
-  ${actor('s7T', OTU, TX, GY, TS, ['run', 'run2'])}
-  ${pg('s7tag', 820, 560, `<path d="M820,640 L800,606 L840,606 Z" fill="#2f74c8" stroke="#000" stroke-width="5"/><rect x="700" y="520" width="240" height="90" rx="16" fill="#2f74c8" stroke="#000" stroke-width="6"/>${TXT(820, 584, 56, 'RIVAL', '#fff', 'Anton')}`)}
-  ${pg('s7ring', 820, 1000, `<ellipse cx="820" cy="1000" rx="250" ry="470" fill="none" stroke="#ffd23f" stroke-width="12" stroke-dasharray="30 18"/>`)}
-  ${pg('s7clk', 230, 640, `<circle cx="230" cy="640" r="110" fill="#f6f3ea" stroke="#000" stroke-width="10"/><rect x="205" y="500" width="50" height="36" rx="8" fill="#ddd" stroke="#000" stroke-width="6"/>${pg('s7hand', 230, 640, `<line x1="230" y1="640" x2="230" y2="555" stroke="#e0283a" stroke-width="10" stroke-linecap="round"/><circle cx="230" cy="640" r="12" fill="#000"/>`, true)}`)}
-</g>`;
-// 8 · no peleas por una medalla, peleas por tu orgullo
-M += `<g id="s8" opacity="0">${radBg('#2a3c7a', '#070a1c', '#ffd23f', '#070a1c')}
-  ${pg('s8med', 540, 860, `<path d="M440,520 L500,760 L560,760 L500,520 Z" fill="#d8323a" stroke="#000" stroke-width="7"/><path d="M640,520 L580,760 L520,760 L580,520 Z" fill="#2f74c8" stroke="#000" stroke-width="7"/><circle cx="540" cy="900" r="170" fill="url(#yelGlow)" opacity=".6"/><circle cx="540" cy="900" r="130" fill="#f2c13a" stroke="#000" stroke-width="10"/><circle cx="540" cy="900" r="92" fill="none" stroke="#b8860b" stroke-width="8"/>${TXT(540, 945, 120, '1', '#8a5a00', 'Anton')}`)}
-  ${pg('s8x', 540, 860, `<path d="M380,700 L700,1060 M700,700 L380,1060" stroke="#ff2d40" stroke-width="46" stroke-linecap="round" ${STK}/>`)}</g>`;
-M += `<g id="s9" opacity="0">${radBg('#3a4ea0', '#0a0f2a', '#ffd23f', '#0a0f2a')}${flr(540, GY + 4, 240)}${actor('s9V', OV, 540, GY, 1.5, ['cross'])}
-  ${pg('s9crown', 540, 400, `<path d="M440,450 L450,340 L500,400 L540,320 L580,400 L630,340 L640,450 Z" fill="#ffd23f" stroke="#000" stroke-width="8" stroke-linejoin="round"/><circle cx="540" cy="410" r="14" fill="#e0283a" stroke="#000" stroke-width="4"/>`)}</g>`;
-// 10 · lado oscuro y trampa
-M += `<g id="s10" opacity="0">${radBg('#3a1050', '#08020f', '#a040ff', '#08020f')}
-  ${pg('s10warn', 540, 820, `<path d="M540,560 L780,980 L300,980 Z" fill="#ffd23f" stroke="#000" stroke-width="14" stroke-linejoin="round"/>${TXT(540, 930, 280, '!', '#000', 'Anton')}`)}
-  ${pg('s10chart', 540, 670, `<g transform="translate(0,-90)"><rect x="160" y="420" width="760" height="560" rx="24" fill="#120820" stroke="#a040ff" stroke-width="5"/>${TXT(540, 490, 44, 'GANAS DE HACER TRAMPA', '#e48bff')}
-     <line x1="230" y1="920" x2="850" y2="920" stroke="#5a3a7a" stroke-width="5"/>
-     <rect x="290" y="760" width="180" height="160" fill="#6f5a8a" stroke="#000" stroke-width="5"/>${TXT(380, 960, 32, 'SIN RIVAL', '#cbb8e8')}
-     <rect id="s10bar" x="610" y="540" width="180" height="380" fill="#ff2d40" stroke="#000" stroke-width="5"/>${TXT(700, 960, 32, 'CON RIVAL', '#ff6b78')}</g>`)}
-  ${flr(330, GY + 4)}${flr(750, GY + 4)}<g id="s10rw" opacity="0">${actor('s10T', OTU, 330, GY, .95, ['stand'])}${actor('s10R', ORIV, 750, GY, .95, ['stand'], '', true)}</g></g>`;
-// 11 · Babidi controla a Vegeta
-let rings = ''; for (let i = 0; i < 5; i++) rings += `<ellipse class="mr" cx="0" cy="0" rx="${40 + i * 6}" ry="${16 + i * 3}" fill="none" stroke="#e48bff" stroke-width="7" opacity="0"/>`;
-M += `<g id="s11" opacity="0">${radBg('#3a1a5a', '#0c0418', '#b040ff', '#0c0418')}${flr(250, GY + 4, 160)}${flr(580, GY + 4, 230)}${flr(910, GY + 4, 160)}
-  <g id="s11bw" opacity="0">${actor('s11B', babidi, 240, GY, .82)}</g>
-  ${actor('s11V', OV, 580, GY, 1.38, ['cross'])}${actor('s11M', OV_MAJIN, 580, GY, 1.38, ['guard'])}
-  <g id="s11gw" opacity="0">${actor('s11G', OG, 910, GY, .95, ['guard'], '', true)}</g>
-  <g id="s11rings">${rings}</g>
-  ${pg('s11m', 580, 700, `<circle cx="580" cy="700" r="260" fill="url(#purGlow)"/>`)}</g>`;
-// 12 · ¿cómo usas a tu propio Vegeta sin volverte Majin?
-M += `<g id="s12" opacity="0"><rect width="540" height="1920" fill="#1b2a5e"/><rect x="540" width="540" height="1920" fill="#3a1050"/><rect x="532" width="16" height="1920" fill="#000"/>
-  ${flr(280, GY + 4, 180)}${flr(800, GY + 4, 180)}${actor('s12V', OV, 280, GY, 1.12, ['cross'])}${actor('s12M', OV_MAJIN, 800, GY, 1.12, ['guard'])}
-  ${pg('s12ok', 280, 560, `<circle cx="280" cy="560" r="80" fill="#22b35a" stroke="#fff" stroke-width="10"/><path d="M240,560 L270,594 L326,530" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>`)}
-  ${pg('s12no', 800, 560, `<circle cx="800" cy="560" r="80" fill="#e0283a" stroke="#fff" stroke-width="10"/><path d="M760,520 L840,600 M840,520 L760,600" stroke="#fff" stroke-width="18" stroke-linecap="round"/>`)}</g>`;
-// 13 · paso 1: alguien de tu nivel + marcador
-function score(id, a, b) { return pg(id, 540, 560, `<rect x="320" y="490" width="440" height="140" rx="22" fill="#0b0f1e" stroke="#fff" stroke-width="6"/>${TXT(430, 590, 92, a, '#ff4a5a', 'Anton')}${TXT(540, 584, 70, '-', '#fff', 'Anton')}${TXT(650, 590, 92, b, '#5fb0ff', 'Anton')}`); }
-M += `<g id="s13" opacity="0">${track('s13')}<rect width="1080" height="1920" fill="#000" opacity=".25"/>${flr(310, GY + 4)}${flr(770, GY + 4)}
-  ${actor('s13T', OTU, 310, GY, 1.15, ['stand', 'up'])}${actor('s13R', ORIV, 770, GY, 1.15, ['stand', 'up'], '', true)}
-  ${pg('s13eq', 540, 760, `<line x1="200" y1="740" x2="880" y2="740" stroke="#ffd23f" stroke-width="10" stroke-dasharray="26 16"/><rect x="470" y="690" width="140" height="100" rx="18" fill="#ffd23f" stroke="#000" stroke-width="6"/>${TXT(540, 770, 90, '=', '#000', 'Anton')}`)}
-  ${score('s13s0', '0', '1')}${score('s13s1', '1', '1')}</g>`;
-// 14 · paso 2: compite contra sus números
-M += `<g id="s14" opacity="0"><rect width="1080" height="1920" fill="#0c1226"/><rect width="1080" height="1920" fill="url(#grid)" opacity=".7"/>${flr(300, GY + 4)}${flr(790, GY + 4)}
-  ${actor('s14T', OTU, 300, GY, 1.0, ['stand'])}${actor('s14R', ORIV, 790, GY, 1.0, ['stand'], '', true)}
-  <g id="s14pan" opacity="0"><rect x="80" y="400" width="920" height="380" rx="24" fill="#0b0f1e" stroke="#5fb0ff" stroke-width="5"/>
-   ${TXT(200, 520, 42, 'RIVAL', '#5fb0ff', 'Anton')}<rect x="290" y="480" width="560" height="56" rx="12" fill="#2f74c8"/>${TXT(920, 522, 38, '4:55', '#5fb0ff', 'Anton')}
-   ${TXT(200, 660, 42, 'TÚ', '#ff4a5a', 'Anton')}<rect x="290" y="620" width="560" height="56" rx="12" fill="#1a2238"/><rect id="s14bar" x="290" y="620" width="400" height="56" rx="12" fill="#d8323a"/>${TXT(920, 662, 38, '5:03', '#ff4a5a', 'Anton')}
-   <line id="s14line" x1="850" y1="450" x2="850" y2="700" stroke="#ffd23f" stroke-width="8" stroke-dasharray="16 10" opacity="0"/></g>
-  ${pg('s14flag', 850, 410, `<line x1="850" y1="460" x2="850" y2="330" stroke="#fff" stroke-width="8"/><path d="M850,330 L940,355 L850,380 Z" fill="#ffd23f" stroke="#000" stroke-width="5"/>${TXT(850, 315, 40, 'META', '#ffd23f', 'Anton', STK)}`)}
-  ${pg('s14x', 790, 1050, `<path d="M680,900 L900,1180 M900,900 L680,1180" stroke="#ff2d40" stroke-width="32" stroke-linecap="round" ${STK}/>`)}</g>`;
-// 15 · paso 3: pregúntale cómo lo hizo (podio)
-M += `<g id="s15" opacity="0">${radBg('#2f3f6e', '#0b1022', '#ffd23f', '#0b1022')}
-  <rect x="560" y="1150" width="340" height="770" fill="#e8c24a" stroke="#000" stroke-width="8"/>${TXT(730, 1300, 140, '1', '#8a5a00', 'Anton')}
-  <rect x="180" y="1300" width="340" height="620" fill="#c9ccd6" stroke="#000" stroke-width="8"/>${TXT(350, 1450, 140, '2', '#6a6e7a', 'Anton')}
-  ${actor('s15R', ORIV, 730, 1150, .9, ['stand', 'up'], '', true)}${actor('s15T', OTU, 350, 1300, .9, ['stand'])}
-  ${pg('s15tro', 730, 470, `<path d="M670,380 L790,380 L780,470 Q730,520 680,470 Z" fill="#ffd23f" stroke="#000" stroke-width="7"/><path d="M670,400 Q630,400 640,440 Q650,470 685,468 M790,400 Q830,400 820,440 Q810,470 775,468" fill="none" stroke="#000" stroke-width="7"/><rect x="715" y="505" width="30" height="40" fill="#ffd23f" stroke="#000" stroke-width="6"/><rect x="690" y="540" width="80" height="22" rx="6" fill="#b8860b" stroke="#000" stroke-width="6"/>`)}
-  ${pg('s15q', 330, 600, `<path d="M140,500 Q140,440 200,440 L470,440 Q530,440 530,500 L530,610 Q530,670 470,670 L330,670 L290,730 L290,670 L200,670 Q140,670 140,610 Z" fill="#fff" stroke="#000" stroke-width="7"/>${TXT(335, 540, 44, '¿CÓMO', '#15121a', 'Anton')}${TXT(335, 610, 44, 'LO HICISTE?', '#15121a', 'Anton')}`)}
-  ${pg('s15bulb', 860, 640, `<circle cx="860" cy="640" r="90" fill="url(#yelGlow)"/><circle cx="860" cy="620" r="50" fill="#ffe66a" stroke="#000" stroke-width="7"/><rect x="838" y="664" width="44" height="34" rx="6" fill="#b8bcc6" stroke="#000" stroke-width="6"/>`)}</g>`;
-// 16 · Goku y Vegeta entrenando juntos con Whis
-M += `<g id="s16" opacity="0">${radBg('#2a4c8a', '#071226', '#7fdcff', '#071226')}${flr(540, 1250, 150)}
-  <g id="s16ww" opacity="0">${actor('s16W', OWHIS, 540, 1250, .78, ['stand'])}</g>${flr(300, GY + 4)}${flr(780, GY + 4)}
-  ${actor('s16G', OG_BLUE, 290, GY, 1.12, ['guard', 'punch'])}${actor('s16V', OV_BLUE, 790, GY, 1.12, ['guard', 'punch'], '', true)}
-  ${impactFx('s16i1', 540, 1000, '#bff0ff')}${impactFx('s16i2', 540, 1010, '#bff0ff')}${impactFx('s16i3', 540, 990, '#bff0ff')}</g>`;
-// 17 · etiqueta a tu Vegeta
-M += `<g id="s17" opacity="0">${radBg('#26387a', '#080c1e', '#ffd23f', '#080c1e')}${speedLines('s17sl', '#ffb27a')}${flr(700, GY + 4, 230)}
-  ${actor('s17V', OV, 720, GY, 1.32, ['cross'])}
-  <g id="s17tw" opacity="0">${actor('s17T', OTU, 270, GY, 1.1, ['run', 'run2'])}</g>
-  ${pg('s17tag', 540, 520, `<rect x="140" y="440" width="800" height="160" rx="80" fill="#fff" stroke="#000" stroke-width="8"/><circle cx="240" cy="520" r="58" fill="#e0283a" stroke="#000" stroke-width="6"/>${TXT(240, 548, 80, '@', '#fff', 'Anton')}${TXT(590, 548, 72, 'TU_VEGETA', '#15121a', 'Anton')}`)}
-  ${pg('s17arr', 540, 700, `<path d="M540,640 L540,760" stroke="#ffd23f" stroke-width="22" stroke-linecap="round"/><path d="M490,720 L540,775 L590,720" fill="none" stroke="#ffd23f" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>`)}</g>`;
-M += hook('s18');
+// 2 · el espadachín más fuerte
+M += `<g id="s2" opacity="0">${radBg('#2f7a46', '#06160d', '#9dffbd', '#06160d')}${flr(540, GY + 4, 250)}${actor('s2Z', OZ_AURA, 540, GY, 1.5, ['cross'])}
+  ${pg('s2hat', 540, 560, `<ellipse cx="540" cy="600" rx="190" ry="48" fill="#f2c84b" stroke="#000" stroke-width="9"/><path d="M430,600 Q430,470 540,466 Q650,470 650,600 Z" fill="#f2c84b" stroke="#000" stroke-width="9"/><path d="M432,580 Q540,604 648,580 L650,604 Q540,628 430,604 Z" fill="#d8323a" stroke="#000" stroke-width="6"/>`)}</g>`;
+// 3 · no encuentra ni su propio barco
+M += `<g id="s3" opacity="0"><rect width="1080" height="1920" fill="#7ec6ee"/><circle cx="180" cy="300" r="80" fill="#fff4c0"/>${sea}${pg('s3ship', 820, 1000, ship(820, 1000), true)}
+  <rect y="1300" width="1080" height="620" fill="#e0c28a"/><rect y="1430" width="1080" height="490" fill="#c9a66a"/>${flr(330, GY + 4, 200)}
+  ${actor('s3Z', OZ_LOST, 330, GY, 1.3, ['stand', 'scratch'], '', true)}
+  ${pg('s3arr', 820, 600, `<path d="M820,520 L820,640" stroke="#ffd23f" stroke-width="24" stroke-linecap="round" ${STK}/><path d="M770,600 L820,660 L870,600" fill="none" stroke="#ffd23f" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>${TXT(820, 500, 64, 'SU BARCO', '#ffd23f', 'Anton', STK)}`)}
+  ${pg('s3q', 330, 560, QM(380, 600))}</g>`;
+// 4 · nos reímos… el chiste eres tú
+const JA = [[220, 430, -12], [860, 520, 10], [600, 720, 8], [860, 900, -8]];
+M += `<g id="s4" opacity="0">${radBg('#7a6a1a', '#1a1404', '#ffe27a', '#1a1404')}${flr(330, GY + 4, 190)}${flr(780, GY + 4, 170)}
+  ${actor('s4Z', OZ_LOST, 330, GY, 1.2, ['stand', 'scratch'])}
+  <g id="s4Tw" opacity="0">${actor('s4T', OTU, 780, GY, 1.12, ['phone'], '', true)}</g>
+  ${JA.map(([x, y, r], i) => pg('s4j' + i, x, y, `<g transform="rotate(${r} ${x} ${y})">${TXT(x, y + 30, 96, 'JA JA', '#fff', 'Anton', 'stroke="#000" stroke-width="10" paint-order="stroke"')}</g>`)).join('')}
+  ${pg('s4sci', 540, 560, `<circle cx="540" cy="560" r="150" fill="url(#yelGlow)" opacity=".6"/><path d="M500,440 L500,520 L430,650 Q420,680 450,680 L630,680 Q660,680 650,650 L580,520 L580,440 Z" fill="#d6f4ff" stroke="#000" stroke-width="8" stroke-linejoin="round"/><path d="M462,600 L618,600 L650,652 Q656,672 632,672 L448,672 Q424,672 430,652 Z" fill="#3fd17a"/><rect x="486" y="426" width="108" height="24" rx="8" fill="#9aa4b8" stroke="#000" stroke-width="6"/>`)}
+  ${pg('s4fing', 780, 700, `<path d="M640,700 L900,700" stroke="#ff4152" stroke-width="26" stroke-linecap="round" ${STK}/><path d="M860,650 L920,700 L860,750" fill="none" stroke="#ff4152" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>`)}</g>`;
+// 5 · Londres: taxistas y 25 000 calles
+let streets = ''; for (let i = 0; i < 9; i++) streets += `<line x1="${60 + i * 120}" y1="360" x2="${60 + i * 120}" y2="1000" stroke="#ffd23f" stroke-width="4" opacity=".55"/>`; for (let i = 0; i < 6; i++) streets += `<line x1="40" y1="${380 + i * 120}" x2="1040" y2="${380 + i * 120}" stroke="#ffd23f" stroke-width="4" opacity=".55"/>`;
+M += `<g id="s5" opacity="0">${nightBg()}${bigBen}<g id="s5map" opacity="0"><rect x="30" y="340" width="1020" height="680" rx="20" fill="#0b0f22" opacity=".85"/>${streets}</g>
+  <rect y="1430" width="1080" height="490" fill="#14122e"/>${flr(250, GY + 4, 170)}${actor('s5D', OTAXI, 250, GY, 1.12, ['stand', 'point'])}
+  <g id="s5cw">${pg('s5cab', 730, 1460, cab(730, 1460), true)}</g>
+  ${pg('s5cnt', 540, 560, `<rect x="250" y="490" width="580" height="140" rx="22" fill="#ffd23f" stroke="#000" stroke-width="8"/><text id="s5num" x="540" y="590" font-family="Anton" font-size="96" text-anchor="middle" fill="#000">0</text>`)}</g>`;
+// 6 · Maguire escanea el cerebro: hipocampo más grande
+M += `<g id="s6" opacity="0"><rect width="1080" height="1920" fill="#0c1226"/><rect width="1080" height="1920" fill="url(#grid)" opacity=".7"/>
+  ${brain('s6b', 540, 960, 1.45)}
+  <g id="s6scan" opacity="0"><rect id="s6bar" x="120" y="560" width="22" height="820" fill="#6fd3ff" opacity=".85" filter="url(#glowB)"/></g>
+  ${pg('s6arr', 760, 1180, `<path d="M900,1260 L700,1120" stroke="#ffd23f" stroke-width="22" stroke-linecap="round" ${STK}/><path d="M700,1180 L690,1112 L760,1110" fill="none" stroke="#ffd23f" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>`)}</g>`;
+// 7 · mapa mental (cabeza que dibuja un mapa) + años al volante
+M += `<g id="s7" opacity="0">${radBg('#2a4c8a', '#071226', '#7fdcff', '#071226')}
+  <g id="s7head"><path d="M300,1300 L300,1180 Q190,1150 200,1000 Q180,980 210,940 Q200,600 540,580 Q860,590 860,900 Q870,1120 760,1180 L760,1300 Z" fill="#f2c8a0" stroke="#000" stroke-width="10" stroke-linejoin="round"/>
+   <rect x="330" y="700" width="420" height="360" rx="30" fill="#f4ead2" stroke="#000" stroke-width="7"/>
+   <path d="M330,820 L750,820 M330,940 L750,940 M470,700 L470,1060 M610,700 L610,1060" stroke="#c9b892" stroke-width="10"/>
+   <path id="s7route" d="M370,1020 L370,880 L540,880 L540,760 L700,760" fill="none" stroke="#e0283a" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3000" stroke-dashoffset="3000"/>
+   <circle id="s7pin" cx="700" cy="760" r="20" fill="#e0283a" stroke="#000" stroke-width="5" opacity="0"/></g>
+  <g id="s7chart" opacity="0"><rect x="100" y="560" width="880" height="780" rx="26" fill="#0b0f1e" stroke="#ffd23f" stroke-width="6"/>${TXT(540, 640, 52, 'AÑOS AL VOLANTE → HIPOCAMPO', '#ffd23f', 'Oswald')}
+   <line x1="180" y1="1240" x2="900" y2="1240" stroke="#5a6a8a" stroke-width="6"/>
+   ${[0, 1, 2].map(i => `<rect id="s7b${i}" x="${230 + i * 230}" y="${1240 - (180 + i * 200)}" width="160" height="${180 + i * 200}" fill="${['#6fd3ff', '#3fa8ff', '#ffd23f'][i]}" stroke="#000" stroke-width="6"/>${TXT(310 + i * 230, 1300, 40, ['5 AÑOS', '15 AÑOS', '30 AÑOS'][i], '#e8eef8')}`).join('')}
+   ${pg('s7wheel', 860, 760, `<circle cx="860" cy="760" r="64" fill="none" stroke="#e8eef8" stroke-width="16"/><circle cx="860" cy="760" r="14" fill="#e8eef8"/><path d="M860,760 L860,700 M860,760 L808,792 M860,760 L912,792" stroke="#e8eef8" stroke-width="12"/>`, true)}</g></g>`;
+// 8 · ¿y con GPS? estudio McGill, 3 años
+M += `<g id="s8" opacity="0">${nightBg()}${flr(320, GY + 4, 190)}${actor('s8T', OTU, 320, GY, 1.25, ['phone'])}
+  ${pg('s8ph', 790, 900, `<g transform="rotate(6 790 900)"><rect x="640" y="640" width="300" height="540" rx="40" fill="#1b1b22" stroke="#000" stroke-width="9"/><rect x="664" y="690" width="252" height="440" rx="12" fill="#e9eef4"/>
+     <path d="M664,800 L916,760 M664,960 L916,1000 M740,690 L780,1130 M860,690 L830,1130" stroke="#c4ccd8" stroke-width="18"/><path d="M790,1110 L790,880 L860,820" fill="none" stroke="#2f9be6" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+     <path d="M760,1060 L790,990 L820,1060 L790,1046 Z" fill="#2f9be6" stroke="#000" stroke-width="5"/></g>`)}
+  ${pg('s8cal', 790, 520, `<rect x="650" y="420" width="280" height="230" rx="18" fill="#fff" stroke="#000" stroke-width="8"/><rect x="650" y="420" width="280" height="64" rx="18" fill="#e0283a" stroke="#000" stroke-width="8"/>${TXT(790, 468, 40, 'AÑOS', '#fff', 'Anton')}
+     ${[1, 2, 3].map(n => `<text class="s8y" id="s8y${n}" x="790" y="620" font-family="Anton" font-size="130" text-anchor="middle" fill="#15121a" opacity="0">${n}</text>`).join('')}`)}</g>`;
+// 9 · más GPS = menos memoria espacial
+M += `<g id="s9" opacity="0"><rect width="1080" height="1920" fill="#0c1226"/><rect width="1080" height="1920" fill="url(#grid)" opacity=".7"/>
+  <g id="s9chart"><rect x="90" y="520" width="900" height="840" rx="26" fill="#0b0f1e" stroke="#ff4a5a" stroke-width="6"/>${TXT(540, 600, 52, 'MEMORIA ESPACIAL', '#ff6b78', 'Oswald')}
+   <line x1="170" y1="1250" x2="920" y2="1250" stroke="#5a6a8a" stroke-width="6"/><line x1="170" y1="660" x2="170" y2="1250" stroke="#5a6a8a" stroke-width="6"/>${TXT(560, 1320, 40, 'USO DE GPS →', '#e8eef8')}
+   <path id="s9line" d="M180,720 L340,770 L480,860 L620,940 L760,1080 L900,1200" fill="none" stroke="#ff2d40" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3000" stroke-dashoffset="3000"/></g>
+  ${pg('s9gps', 900, 1120, `<circle cx="900" cy="1120" r="62" fill="#2f9be6" stroke="#fff" stroke-width="8"/><path d="M876,1150 L900,1086 L924,1150 L900,1136 Z" fill="#fff"/>`)}</g>`;
+// 10 · ¿por qué? sigues flechas → el hipocampo se apaga → solo obedeces
+const ARR = [[540, 1640], [540, 1360], [600, 1150], [690, 990]];
+M += `<g id="s10" opacity="0">${road('s10')}
+  ${ARR.map(([x, y], i) => { const k = 1 - i * .2; return pg('s10a' + i, x, y, `<path d="M${x - 70 * k},${y + 40 * k} L${x},${y - 60 * k} L${x + 70 * k},${y + 40 * k} L${x},${y + 10 * k} Z" fill="#2f9be6" stroke="#fff" stroke-width="${8 * k}" stroke-linejoin="round"/>`); }).join('')}
+  ${flr(400, GY + 4, 190)}${actor('s10T', OTU, 400, GY, 1.22, ['phone'])}
+  ${pg('s10th', 700, 560, bubble(700, 560, 380, 300, `<g transform="translate(700,560) scale(.5)"><path d="M-260,40 C-290,-120 -150,-230 0,-222 C150,-232 292,-140 272,10 C300,92 232,172 140,160 C118,214 40,226 0,198 L-16,262 L-62,254 L-50,192 C-150,204 -252,152 -260,40 Z" fill="#f4a6bd" stroke="#000" stroke-width="12"/>
+     <g id="s10hip"><path d="M-70,60 C-40,10 50,18 66,64 C80,108 34,132 10,110 C-8,94 14,76 32,86" fill="none" stroke="#000" stroke-width="40" stroke-linecap="round"/><path d="M-70,60 C-40,10 50,18 66,64 C80,108 34,132 10,110 C-8,94 14,76 32,86" fill="none" stroke="#ffd23f" stroke-width="28" stroke-linecap="round"/></g></g>`))}
+  ${pg('s10off', 860, 430, `<rect x="790" y="390" width="140" height="80" rx="16" fill="#15121a" stroke="#ff4a5a" stroke-width="6"/>${TXT(860, 450, 52, 'OFF', '#ff4a5a', 'Anton')}`)}</g>`;
+// 11 · lo oscuro: Alzheimer
+M += `<g id="s11" opacity="0">${radBg('#4a0f1c', '#090205', '#ff3d5a', '#090205')}${brain('s11b', 540, 960, 1.4, true)}</g>`;
+// 12 · Haki de reserva + para cuando seas viejo
+let hakiBolts = ''; for (let i = 0; i < 6; i++) { let x = R(240, 840), y = R(560, 900), d = `M${x.toFixed(0)},${y.toFixed(0)}`; for (let k = 0; k < 5; k++) { x += R(-60, 60); y += R(40, 90); d += ` L${x.toFixed(0)},${y.toFixed(0)}`; } hakiBolts += `<path d="${d}" fill="none" stroke="#ff2d5a" stroke-width="7" stroke-linejoin="round" filter="url(#glowB)"/>`; }
+M += `<g id="s12" opacity="0">${radBg('#2a0f3a', '#050208', '#c070ff', '#050208')}<g id="s12bolt" opacity="0">${hakiBolts}</g>${flr(540, GY + 4, 250)}
+  <g id="s12Zw">${actor('s12Z', OZ_HAKI, 540, GY, 1.45, ['cross'])}</g>
+  <g id="s12Ow" opacity="0">${flr(820, GY + 4, 160)}${actor('s12O', OTU_OLD, 820, GY, 1.0, ['stand'])}</g></g>`;
+// 13 · mi opinión: Zoro no es tonto, sigue intentando
+M += `<g id="s13" opacity="0">${radBg('#1f6a3c', '#04120a', '#7dffa8', '#04120a')}${flr(540, GY + 4, 250)}
+  ${actor('s13Z', OZ_AURA, 540, GY, 1.45, ['cross', 'stand'])}</g>`;
+// 14 · ¿cómo entrenas tu orientación? (brújula)
+M += `<g id="s14" opacity="0">${radBg('#5a3a1a', '#120a04', '#ffd23f', '#120a04')}${flr(330, GY + 4, 200)}${actor('s14T', OTU_MAP, 330, GY, 1.25, ['point'])}
+  ${pg('s14cmp', 790, 760, `<circle cx="790" cy="760" r="190" fill="url(#yelGlow)" opacity=".5"/><circle cx="790" cy="760" r="150" fill="#f4ead2" stroke="#000" stroke-width="12"/><circle cx="790" cy="760" r="120" fill="none" stroke="#c9b892" stroke-width="5"/>
+    ${TXT(790, 650, 48, 'N', '#e0283a', 'Anton')}${TXT(790, 905, 40, 'S', '#15121a', 'Anton')}${TXT(905, 775, 40, 'E', '#15121a', 'Anton')}${TXT(675, 775, 40, 'O', '#15121a', 'Anton')}
+    ${pg('s14ndl', 790, 760, `<path d="M790,660 L816,760 L790,860 L764,760 Z" fill="#e0283a" stroke="#000" stroke-width="6"/><path d="M790,760 L816,760 L790,860 L764,760 Z" fill="#e8eef8" stroke="#000" stroke-width="6"/><circle cx="790" cy="760" r="14" fill="#15121a"/>`, true)}`)}</g>`;
+// 15 · paso 1: mira el mapa 30 s y arma la ruta en tu cabeza
+M += `<g id="s15" opacity="0">${radBg('#2a4c8a', '#071226', '#7fdcff', '#071226')}${flr(300, GY + 4, 190)}${actor('s15T', OTU_WALK, 300, GY, 1.15, ['stand', 'point'])}
+  ${pg('s15map', 720, 860, `<g transform="rotate(-4 720 860)"><path d="M500,620 L640,650 L790,610 L940,640 L940,1100 L790,1070 L640,1110 L500,1080 Z" fill="#f4ead2" stroke="#000" stroke-width="8" stroke-linejoin="round"/>
+     <path d="M640,650 L640,1110 M790,610 L790,1070" stroke="#000" stroke-opacity=".2" stroke-width="5"/><path d="M520,780 L920,760 M520,930 L920,940 M580,640 L560,1090 M860,630 L880,1080" stroke="#c9b892" stroke-width="16"/>
+     <path id="s15route" d="M560,1040 L560,930 L700,930 L700,770 L860,770" fill="none" stroke="#e0283a" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3000" stroke-dashoffset="3000"/></g>`)}
+  ${pg('s15clk', 330, 560, `<circle cx="330" cy="580" r="120" fill="#f6f3ea" stroke="#000" stroke-width="10"/><rect x="305" y="430" width="50" height="36" rx="8" fill="#ddd" stroke="#000" stroke-width="6"/><text id="s15num" x="330" y="612" font-family="Anton" font-size="96" text-anchor="middle" fill="#e0283a">0</text>${TXT(330, 660, 30, 'SEG', '#15121a', 'Anton')}`)}
+  ${pg('s15th', 330, 560, bubble(330, 560, 400, 280, `<g transform="translate(330,560) scale(.62)"><rect x="-210" y="-160" width="420" height="320" rx="20" fill="#f4ead2" stroke="#000" stroke-width="8"/><path d="M-170,130 L-170,20 L-10,20 L-10,-100 L170,-100" fill="none" stroke="#e0283a" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/><circle cx="170" cy="-100" r="22" fill="#e0283a" stroke="#000" stroke-width="6"/></g>`))}</g>`;
+// 16 · paso 2: tres puntos fijos (tienda, puente, esquina) — nubes no
+M += `<g id="s16" opacity="0"><rect width="1080" height="1920" fill="#1d3a2a"/><rect width="1080" height="1920" fill="url(#grid)" opacity=".35"/>
+  <path d="M120,1300 L120,1000 L460,1000 L460,700 L900,700" fill="none" stroke="#3b3f4c" stroke-width="90" stroke-linejoin="round"/><path id="s16route" d="M120,1300 L120,1000 L460,1000 L460,700 L900,700" fill="none" stroke="#ffd23f" stroke-width="12" stroke-dasharray="26 18"/>
+  ${pg('s16a', 250, 900, shop(250, 900))}${pg('s16ac', 330, 820, CHECK(330, 820, 40))}
+  ${pg('s16b', 640, 1120, bridge(640, 1120))}${pg('s16bc', 740, 1070, CHECK(740, 1070, 40))}
+  ${pg('s16c', 870, 600, corner(870, 600))}${pg('s16cc', 960, 520, CHECK(960, 520, 40))}
+  ${pg('s16d', 300, 560, cloud(300, 560))}${pg('s16dx', 400, 520, CROSS(400, 520, 40))}
+  ${flr(930, GY + 4, 150)}<g id="s16Zw" opacity="0">${actor('s16Z', OZ_LOST, 930, GY, .95, ['scratch'], '', true)}</g></g>`;
+// 17 · paso 3: una vez por semana, calle nueva sin GPS
+M += `<g id="s17" opacity="0">${nightBg()}
+  ${pg('s17cal', 270, 560, `<rect x="90" y="440" width="360" height="260" rx="18" fill="#fff" stroke="#000" stroke-width="8"/><rect x="90" y="440" width="360" height="66" rx="18" fill="#2f74c8" stroke="#000" stroke-width="8"/>${TXT(270, 490, 40, 'SEMANA', '#fff', 'Anton')}
+     ${['L', 'M', 'X', 'J', 'V', 'S', 'D'].map((d, i) => `${TXT(122 + i * 49, 570, 34, d, '#15121a', 'Anton')}<rect x="${102 + i * 49}" y="590" width="40" height="40" rx="8" fill="#e8eef8" stroke="#000" stroke-width="4"/>`).join('')}
+     <path id="s17chk" d="M402,610 L414,624 L436,596" fill="none" stroke="#22b35a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>`)}
+  ${pg('s17sign', 820, 620, `<rect x="808" y="620" width="24" height="320" fill="#9aa4b8" stroke="#000" stroke-width="5"/><path d="M640,540 L960,540 L1010,600 L960,660 L640,660 Z" fill="#22b35a" stroke="#000" stroke-width="7" stroke-linejoin="round"/>${TXT(815, 620, 52, 'CALLE NUEVA', '#fff', 'Anton')}`)}
+  ${pg('s17house', 930, 1250, house(930, 1250))}
+  ${flr(420, GY + 4, 180)}${actor('s17T', OTU_WALK, 420, GY, 1.15, ['stand'])}
+  ${pg('s17ph', 220, 900, `<g transform="translate(-340,0)"><rect x="500" y="800" width="120" height="200" rx="18" fill="#1b1b22" stroke="#000" stroke-width="7"/><rect x="512" y="820" width="96" height="160" rx="6" fill="#2f9be6"/><path d="M540,950 L560,850 L580,950 L560,936 Z" fill="#fff"/>${CROSS(600, 820, 44)}</g>`)}</g>`;
+// 18 · etiqueta a tu Zoro (el que se pierde buscando el baño)
+M += `<g id="s18" opacity="0">${radBg('#1f6a3c', '#04120a', '#ffd23f', '#04120a')}${flr(380, GY + 4, 200)}
+  ${actor('s18Z', OZ_LOST, 380, GY, 1.25, ['stand', 'scratch'], '', true)}
+  ${pg('s18tag', 540, 520, `<rect x="140" y="440" width="800" height="160" rx="80" fill="#fff" stroke="#000" stroke-width="8"/><circle cx="240" cy="520" r="58" fill="#e0283a" stroke="#000" stroke-width="6"/>${TXT(240, 548, 80, '@', '#fff', 'Anton')}${TXT(590, 548, 72, 'TU_ZORO', '#15121a', 'Anton')}`)}
+  ${pg('s18arr', 540, 700, `<path d="M540,640 L540,760" stroke="#ffd23f" stroke-width="22" stroke-linecap="round"/><path d="M490,720 L540,775 L590,720" fill="none" stroke="#ffd23f" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>`)}
+  ${pg('s18wc', 860, 1000, `<rect x="760" y="820" width="200" height="420" rx="10" fill="#8a5a2e" stroke="#000" stroke-width="8"/><circle cx="930" cy="1040" r="12" fill="#f2c13a" stroke="#000" stroke-width="4"/><rect x="790" y="860" width="140" height="80" rx="10" fill="#2f74c8" stroke="#000" stroke-width="6"/>${TXT(860, 918, 56, 'WC', '#fff', 'Anton')}`)}
+  ${pg('s18q', 420, 760, QM(520, 760))}</g>`;
+M += hook('s19');
 M += `</g></g><rect width="1080" height="1920" fill="url(#vig)"/><rect id="flash" width="1080" height="1920" fill="#fff" opacity="0"/>`;
 root.innerHTML = M;
 
 // =============================================================== LÍNEA DE TIEMPO
-// --- 1 · 0–5.88 · gancho
-function hookTL(p, t0, uiT, vegT, endT, first) {
+// --- 1 · 0–3.54 · gancho (se repite al final para el bucle)
+function hookTL(p, t0, tLinea, tY, tTu, endT) {
   scene(p, t0, endT);
-  cam(t0, 540, 860, 1.12, 0); cam(t0 + .02, 540, 960, 1.0, Math.max(.3, vegT - t0 - .1), 'sine.inOut');
-  auraPulse(p + 'G', t0, endT); breathe(p + 'G', t0, vegT, 5);
-  sfx(t0 + .02, 'aura', .55);
-  big('ULTRA INSTINTO', uiT, vegT, '#e9eefc', 132);
-  sfx(uiT, 'shimmer', .5);
-  // entra Vegeta: Goku se hace a un lado
-  tl.to(RIGS[p + 'G'], { x: -230, duration: .3, ease: 'power3.out' }, vegT);
-  show(p + 'Vw', vegT); enter(p + 'V', vegT, 700, .28); sfx(vegT + .22, 'slam', .9); shake(vegT + .24, .3, 18); flash(vegT + .22, '#7fb0ff', .35, .25);
-  if (first) breathe(p + 'V', vegT + .4, endT, 4);
+  cam(t0, 540, 1000, 1.14, 0); cam(t0 + .02, 540, 960, 1.0, Math.max(.4, tY - t0), 'sine.inOut');
+  // Zoro camina por la línea recta… y se sale
+  walk(p + 'Z', t0, tY + .3, .3, .3, 3);
+  tl.to(RIGS[p + 'Z'], { x: 250, duration: tY + .3 - t0, ease: 'power1.in' }, t0);
+  big('LÍNEA RECTA', tLinea, tY + .02, '#ffd23f', 160);
+  popS(p + 'q', tY, 'blip', .6); pose(p + 'Z', 1, tY);
+  tl.to(RIGS[p + 'q'], { r: 6, duration: .25, yoyo: true, repeat: 5, ease: 'sine.inOut' }, tY + .2);
+  // y tú vas por el mismo camino
+  show(p + 'Tw', tTu); enter(p + 'T', tTu, -500, .35);
+  walk(p + 'T', tTu + .35, endT, .32, .25, 2);
+  tl.to(RIGS[p + 'T'], { x: 60, duration: endT - tTu, ease: 'none' }, tTu + .35);
+  lab('Y TÚ… IGUAL', tTu + .1, endT, 'r');
+  flash(tTu + .05, '#ff6b78', .25, .2);
 }
-hookTL('s1', 0, 1.66, 2.48, 5.88, true);
-pill('NO LO DIGO YO…', 3.3, 4.5, '', 'pop');
-popS('s1sci', 4.52, 'glint', .7); pill('LO DICE LA CIENCIA', 4.52, 5.88, 'y', null);
-hideS('s1sci', 5.7, .15);
+hookTL('s1', 0, 1.12, 1.96, 2.2, 3.54);
 
-// --- 2 · 5.88–10.24 · Vegeta lo alcanza → Goku sube de nivel
-cut(5.88); scene('s2', 5.88, 10.24);
-cam(5.88, 540, 960, 1.0, 0);
-pill('PIÉNSALO', 5.88, 6.66, 'y');
-breathe('s2G', 5.88, 8.6, 5); breathe('s2V', 5.88, 7.0, 4);
-// Vegeta corre a alcanzarlo
-pose('s2V', 1, 7.0); zoomLines(7.0, 7.7, 's2sl'); sfx(7.0, 'whoosh', .7);
-ft(RIGS.s2V, { x: 0 }, { x: -200, duration: .6, ease: 'power2.inOut' }, 7.05);
-lab('LO ALCANZA', 7.64, 8.7, 'b'); sfx(7.66, 'thud', .6); shake(7.66, .15, 8);
-// Goku se transforma
-tl.set('#s2G', { opacity: 0 }, 8.7); tl.set('#s2G2', { opacity: 0 }, 0); tl.set('#s2G2', { opacity: 1 }, 8.7);
-powerUp('s2G2', 8.7, '#ffe14d'); auraPulse('s2G2', 8.7, 10.24);
-cam(8.7, 400, 900, 1.2, .3, 'power3.out');
-popS('s2up', 9.34, 'blip', .6); tl.to(RIGS.s2up, { y: -40, duration: .5, ease: 'power2.out' }, 9.4);
-lab('GOKU SUBE DE NIVEL', 9.34, 10.24, 'y', null);
+// --- 2 · 3.54–6.02 · el espadachín más fuerte
+cut(3.54); scene('s2', 3.54, 6.02);
+cam(3.54, 540, 1000, 1.18, 0); cam(3.56, 540, 960, 1.0, .5, 'power2.out');
+sfx(3.56, 'aura', .5); auraPulse('s2Z', 3.54, 6.02); breathe('s2Z', 3.54, 6.0, 5);
+sfx(4.28, 'metal', .5); flash(4.28, '#bfffd2', .35, .2);
+big('EL MÁS FUERTE', 4.7, 5.34, '#7dffa8', 150);
+popS('s2hat', 5.34, 'pop', .6); tl.to(RIGS.s2hat, { r: 8, duration: .2, yoyo: true, repeat: 1 }, 5.5);
+pill('SOMBRERO DE PAJA', 5.34, 6.02, 'y', null);
 
-// --- 3 · 10.24–16.08 · escalera de transformaciones
-cut(10.24); scene('s3', 10.24, 16.08);
-cam(10.24, 300, 1300, 1.25, 0);
-const GT = [10.24, 11.48, 12.26, 12.94];
-GT.forEach((t, i) => {
-  if (i) tl.set(`#s3g${i - 1}w`, { opacity: 0 }, t);
-  show(`s3g${i}w`, t); ft(RIGS['s3g' + i], { y: -120, s: .7 }, { y: 0, s: 1, duration: .25, ease: 'back.out(2)' }, t);
-  sfx(t, 'powerup', .55); flash(t, GCOL[i], .35, .25);
-  auraPulse('s3g' + i, t, 16.08);
-  if (i) { show(`s3v${i - 1}w`, t); if (i > 1) tl.set(`#s3v${i - 2}w`, { opacity: 0 }, t); ft(RIGS['s3v' + (i - 1)], { x: -160 }, { x: 0, duration: .25, ease: 'power2.out' }, t + .1); sfx(t + .1, 'swish', .4); }
-});
-cam(11.48, 520, 1100, 1.15, .4); cam(12.26, 700, 940, 1.1, .35); cam(12.94, 540, 960, 1.0, .5);
-pill('UNO PERSIGUE AL OTRO', 14.16, 16.08, 'y', null);
+// --- 3 · 6.02–8.2 · ni su propio barco
+cut(6.02); scene('s3', 6.02, 8.2);
+cam(6.02, 540, 960, 1.0, 0);
+walk('s3Z', 6.02, 6.9, .3, .3, 3); tl.to(RIGS.s3Z, { x: -120, duration: .9, ease: 'power1.out' }, 6.02);
+sfx(6.3, 'splash', .25);
+popS('s3arr', 6.68, 'pop', .6); tl.to(RIGS.s3arr, { y: 18, duration: .22, yoyo: true, repeat: 5 }, 6.9);
+pose('s3Z', 1, 7.2); popS('s3q', 7.2, 'blip', .6);
+lab('NI SU PROPIO BARCO', 7.2, 8.2, 'y', null);
+tl.to(RIGS.s3ship, { y: 10, duration: .5, yoyo: true, repeat: 3, ease: 'sine.inOut' }, 6.02);
 
-// --- 4 · 16.08–18.22 · RIVALIDAD
-cut(16.08); scene('s4', 16.08, 18.22);
-cam(16.08, 540, 960, 1.0, 0); cam(16.1, 540, 1000, 1.1, 2.0, 'sine.inOut');
-enter('s4G', 16.08, -500, .3, null); enter('s4V', 16.08, 500, .3, null);
-breathe('s4G', 16.4, 18.2, 4); breathe('s4V', 16.4, 18.2, 4);
-popS('s4vs', 16.52, 'zap', .7);
-show('s4b', 16.9); tl.to('#s4b', { opacity: .3, duration: .05, yoyo: true, repeat: 7 }, 16.9); sfx(16.9, 'zap', .5);
-big('RIVALIDAD', 17.34, 18.22, '#ff4a5a', 170);
+// --- 4 · 8.2–11.74 · nos reímos… el chiste eres tú
+cut(8.2); scene('s4', 8.2, 11.74);
+cam(8.2, 540, 960, 1.0, 0); breathe('s4Z', 8.2, 9.4, 4);
+JA.forEach((_, i) => { popS('s4j' + i, 8.3 + i * .2, 'pop', .45); tl.to(RIGS['s4j' + i], { y: -14, duration: .12, yoyo: true, repeat: 5 }, 8.5 + i * .2); hideS('s4j' + i, 9.5); });
+pose('s4Z', 1, 8.4);
+popS('s4sci', 9.68, 'glint', .7); hideS('s4sci', 10.4, .15);
+show('s4Tw', 10.38); enter('s4T', 10.38, 500, .3);
+popS('s4fing', 10.74, null); tl.to(RIGS.s4fing, { x: 20, duration: .15, yoyo: true, repeat: 3 }, 10.9);
+cam(10.74, 780, 1050, 1.2, .3, 'power3.out');
+stamp('EL CHISTE ERES TÚ', 10.74, 11.74, '#ff3346', 330);
 
-// --- 5 · 18.22–22.24 · universidad
-cut(18.22); scene('s5', 18.22, 22.24);
-cam(18.22, 540, 1000, 1.15, 0); cam(18.24, 540, 960, 1.0, 3.9, 'sine.inOut');
-pill('UNIVERSIDAD DE NUEVA YORK', 19.18, 22.24, 'b');
-popS('s5clip', 20.44, 'pop', .6);
-popS('s5ok', 20.72, 'ding', .6);
-tl.to(RIGS.s5clip, { r: -3, duration: .4, yoyo: true, repeat: 2 }, 20.8);
-lab('EN LA VIDA REAL', 21.16, 22.24, 'y');
-
-// --- 6 · 22.24–25.0 · miles de resultados
-cut(22.24); scene('s6', 22.24, 25.0);
-cam(22.24, 540, 960, 1.0, 0);
-ft('#s6rows', { y: 0 }, { y: -2300, duration: 2.7, ease: 'power1.in' }, 22.3);
-for (let t = 22.4; t < 24.9; t += .12) sfx(t, 'tick', .25);
+// --- 5 · 11.74–16.04 · Londres, taxistas, 25 000 calles
+cut(11.74); scene('s5', 11.74, 16.04);
+cam(11.74, 540, 900, 1.12, 0); cam(11.76, 540, 960, 1.0, 1.0, 'sine.inOut');
+pill('LONDRES', 11.86, 13.4, 'b');
+ft(RIGS.s5cab, { x: 700 }, { x: 0, duration: .5, ease: 'power3.out' }, 12.6); sfx(12.6, 'whoosh', .6); sfx(13.0, 'horn', .45);
+pose('s5D', 1, 13.06); breathe('s5D', 11.74, 13.0, 4);
+tl.to('#s5map', { opacity: 1, duration: .3 }, 13.42); sfx(13.42, 'shimmer', .4);
+popS('s5cnt', 13.82, 'pop', .6);
 const CNT = { v: 0 };
-popS('s6cnt', 22.8, 'pop', .5);
-ft(CNT, { v: 0 }, { v: 1000, duration: 1.7, ease: 'power2.out', onUpdate: () => { $('s6num').textContent = Math.round(CNT.v).toLocaleString('es') + (CNT.v > 999 ? '+' : ''); } }, 22.8);
-pill('MILES DE CORREDORES', 23.28, 25.0, 'y');
+ft(CNT, { v: 0 }, { v: 25000, duration: 1.0, ease: 'power2.out', onUpdate: () => { $('s5num').textContent = Math.round(CNT.v).toLocaleString('es-ES').replace(/\./g, ' '); } }, 14.18);
+for (let t = 14.18; t < 15.2; t += .08) sfx(t, 'tick', .25);
+sfx(15.2, 'ding', .7); ft(RIGS.s5cnt, { s: 1.15 }, { s: 1, duration: .25 }, 15.2);
+lab('CALLES DE MEMORIA', 14.82, 16.04, 'y', null);
 
-// --- 7 · 25.0–38.54 · la carrera: el rival al lado
-cut(25.0); scene('s7', 25.0, 38.54);
-cam(25.0, 540, 1000, 1.08, 0);
-trackRun('s7', 25.0, 38.54);
-runCycle('s7T', 25.0, 38.54, .19, .25);
-show('s7Rw', 26.12); ft(RIGS.s7R, { x: 400 }, { x: 0, duration: .4, ease: 'power3.out' }, 26.12); sfx(26.12, 'whoosh', .6);
-runCycle('s7R', 26.12, 38.54, .19, 0);
-tl.to(RIGS.s7T, { x: -170, duration: .4, ease: 'power2.out' }, 26.12);
-popS('s7tag', 26.4, 'pop', .6); hideS('s7tag', 27.9, .15);
-pill('SU RIVAL EN LA CARRERA', 26.12, 27.96, 'b', null);
-// más rápido
-cam(27.96, 680, 1050, 1.0, .3); zoomLines(27.96, 31.7, 's7sl'); sfx(27.96, 'riser', .6);
-popS('s7clk', 28.72, 'tick', .7);
-tl.to(RIGS.s7hand, { r: 720, duration: 2.4, ease: 'power2.out' }, 28.72);
-big('−5 SEG / KM', 28.96, 31.7, '#ffd23f', 150);
-pill('MÁS RÁPIDO', 29.82, 31.7, 'y', null);
-hideS('s7clk', 31.6, .15);
-pill('MISMAS PIERNAS ✔', 31.78, 33.1, '', 'ding');
-pill('MISMO ENTRENAMIENTO ✔', 33.16, 34.8, '', 'ding');
-// lo único que cambió: quién estaba a su lado
-cam(34.88, 760, 1000, 1.15, .6);
-popS('s7ring', 36.26, 'glint', .7); tl.to(RIGS.s7ring, { s: 1.06, duration: .3, yoyo: true, repeat: 3 }, 36.5);
-lab('QUIÉN ESTABA A SU LADO', 36.26, 37.78, 'y', null);
-hideS('s7ring', 37.7, .1);
-big('¿POR QUÉ?', 37.78, 38.54, '#ffffff', 170);
-cam(37.78, 540, 1000, 1.08, .3);
+// --- 6 · 16.04–20.98 · Maguire escanea el cerebro → hipocampo más grande
+cut(16.04); scene('s6', 16.04, 20.98);
+cam(16.04, 540, 960, 1.0, 0);
+popS('s6b', 16.1, 'pop', .6);
+pill('NEUROCIENTÍFICA', 16.26, 16.9, 'b', null);
+pill('ELEANOR MAGUIRE · UCL', 16.92, 18.7, 'b');
+show('s6scan', 17.84); ft('#s6bar', { attr: { x: 120 } }, { attr: { x: 940 }, duration: .8, ease: 'power1.inOut' }, 17.84); sfx(17.84, 'riser', .5); sfx(17.84, 'blip', .5);
+tl.set('#s6scan', { opacity: 0 }, 18.7);
+big('MÁS GRANDE', 19.6, 20.98, '#ffd23f', 160);
+ft('#s6bhip', { scale: 1, transformOrigin: '50% 50%' }, { scale: 1.45, duration: .45, ease: 'back.out(2.5)' }, 20.26); sfx(20.26, 'powerup', .5); flash(20.26, '#ffd23f', .3, .25);
+popS('s6arr', 20.3, null);
+lab('HIPOCAMPO', 20.26, 20.98, 'y', null);
 
-// --- 8 · 38.54–42.8 · no peleas por una medalla, peleas por tu orgullo
-cut(38.54); scene('s8', 38.54, 42.8);
-cam(38.54, 540, 960, 1.0, 0);
-pill('CONTRA UN RIVAL…', 38.74, 40.3, '');
-popS('s8med', 38.9, 'ding', .6); tl.to(RIGS.s8med, { r: 6, duration: .35, yoyo: true, repeat: 3, ease: 'sine.inOut' }, 39.2);
-ft(RIGS.s8med, { s: 1 }, { s: 1.15, duration: .15, yoyo: true, repeat: 1 }, 40.36); sfx(40.36, 'glint', .6);
-pill('NO PELEAS POR UNA MEDALLA', 40.36, 41.9, 'b', null);
-popS('s8x', 41.34, 'slam', .8); shake(41.36, .2, 12);
-tl.to(['#s8med', '#s8x'], { opacity: .25, duration: .2 }, 41.92);
-big('ORGULLO', 41.92, 42.8, '#ff4a5a', 200, 700);
+// --- 7 · 20.98–24.78 · el mapa mental + años al volante
+cut(20.98); scene('s7', 20.98, 24.78);
+cam(20.98, 540, 960, 1.0, 0);
+pill('TU MAPA MENTAL', 21.06, 22.78, 'y');
+ft('#s7route', { attr: { 'stroke-dashoffset': 3000 } }, { attr: { 'stroke-dashoffset': 2120 }, duration: .9, ease: 'power1.inOut' }, 21.36); sfx(21.36, 'swish', .5);
+tl.set('#s7pin', { opacity: 1 }, 22.26); sfx(22.26, 'ding', .5);
+tl.set('#s7head', { opacity: 0 }, 22.78); tl.set('#s7chart', { opacity: 1 }, 22.78); sfx(22.78, 'whoosh', .5);
+[0, 1, 2].forEach((i, k) => { const t = [23.16, 23.52, 24.22][k]; const h = 180 + i * 200; ft('#s7b' + i, { attr: { y: 1240, height: 0 } }, { attr: { y: 1240 - h, height: h }, duration: .35, ease: 'back.out(1.6)' }, t); sfx(t, 'blip', .55); });
+tl.set('#s7b0', { attr: { height: 0, y: 1240 } }, 22.78); tl.set('#s7b1', { attr: { height: 0, y: 1240 } }, 22.78); tl.set('#s7b2', { attr: { height: 0, y: 1240 } }, 22.78);
+tl.to(RIGS.s7wheel, { r: 360, duration: 1.8, ease: 'power1.inOut' }, 22.9);
+big('MÁS GRANDE ↑', 24.22, 24.78, '#ffd23f', 130, 330);
 
-// --- 9 · 42.8–44.82 · el príncipe de los saiyajin
-cut(42.8); scene('s9', 42.8, 44.82);
-cam(42.8, 540, 900, 1.15, 0); cam(42.82, 540, 960, 1.0, 1.9, 'sine.inOut');
-breathe('s9V', 42.8, 44.8, 4);
-popS('s9crown', 43.34, 'glint', .8); tl.to(RIGS.s9crown, { y: -14, duration: .5, yoyo: true, repeat: 2, ease: 'sine.inOut' }, 43.7);
-pill('EL PRÍNCIPE SAIYAJIN', 43.34, 44.82, 'y', null);
+// --- 8 · 24.78–30.24 · ¿y con GPS? McGill, 3 años
+cut(24.78); scene('s8', 24.78, 30.24);
+cam(24.78, 540, 960, 1.0, 0); breathe('s8T', 24.78, 30.2, 4);
+popS('s8ph', 25.66, 'blip', .7); tl.to(RIGS.s8ph, { r: -3, duration: .3, yoyo: true, repeat: 3 }, 25.9);
+pill('¿Y CON GPS?', 25.44, 26.78, 'r');
+pill('UNIVERSIDAD McGILL', 26.78, 28.56, 'b');
+hideS('s8ph', 28.9, .15);
+popS('s8cal', 28.98, 'pop', .6);
+[[1, 29.18], [2, 29.5], [3, 29.8]].forEach(([n, t]) => { tl.set('.s8y', { opacity: 0 }, t); tl.set('#s8y' + n, { opacity: 1 }, t); sfx(t, 'tick', .6); ft(RIGS.s8cal, { s: 1.1 }, { s: 1, duration: .2 }, t); });
+lab('3 AÑOS SIGUIENDO CONDUCTORES', 28.56, 30.24, 'y', null);
 
-// --- 10 · 44.82–53.5 · el lado oscuro: trampa
-cut(44.82); scene('s10', 44.82, 53.5);
-cam(44.82, 540, 960, 1.0, 0);
-popS('s10warn', 45.0, 'slam', .8); shake(45.05, .2, 10);
-tl.to(RIGS.s10warn, { r: 4, duration: .1, yoyo: true, repeat: 5 }, 45.3);
-pill('¡CUIDADO!', 45.0, 47.0, 'r', null);
-hideS('s10warn', 47.0, .15);
-big('LADO OSCURO', 47.1, 47.92, '#c070ff', 150);
-sfx(47.1, 'rumble', .6);
-popS('s10chart', 47.92, 'pop', .6);
-pill('OTRO ESTUDIO', 47.92, 49.6, 'b', null);
-show('s10rw', 49.62); ft(RIGS.s10T, { x: -300 }, { x: 0, duration: .3, ease: 'power3.out' }, 49.62); ft(RIGS.s10R, { x: 300 }, { x: 0, duration: .3, ease: 'power3.out' }, 49.7); sfx(49.62, 'whoosh', .5);
-pill('FRENTE A SU RIVAL', 49.62, 51.5, 'r', null);
-ft('#s10bar', { attr: { y: 900, height: 20 } }, { attr: { y: 540, height: 380 }, duration: .7, ease: 'power2.out' }, 51.52); sfx(51.52, 'riser', .5);
-stamp('TRAMPA ↑', 52.68, 53.5, '#ff3346', 560);
+// --- 9 · 30.24–33.66 · más GPS = menos memoria
+cut(30.24); scene('s9', 30.24, 33.66);
+cam(30.24, 540, 960, 1.0, 0);
+pill('LOS QUE MÁS USABAN GPS', 30.34, 32.0, 'r');
+drawPath('#s9line', 31.0, 1.2); sfx(31.0, 'reverse', .45);
+popS('s9gps', 32.0, 'buzz', .5);
+big('MEMORIA ↓', 32.36, 33.66, '#ff4a5a', 160);
+shake(32.5, .25, 10);
 
-// --- 11 · 53.5–60.0 · Babidi controla a Vegeta → Majin Vegeta
-cut(53.5); scene('s11', 53.5, 60.0);
-cam(53.5, 580, 960, 1.1, 0); cam(53.52, 540, 960, 1.0, 1.9, 'sine.inOut');
-tl.set('#s11M', { opacity: 0 }, 0);
-breathe('s11V', 53.5, 58.5, 4);
-pill('COMO VEGETA', 53.82, 55.5, 'y');
-show('s11bw', 55.52); ft(RIGS.s11B, { y: 80, s: .4 }, { y: 0, s: 1, duration: .35, ease: 'back.out(2)' }, 55.52); sfx(55.52, 'magic', .7);
-pill('BABIDI', 55.52, 57.0, 'r', null);
-// ondas de control desde el dedo de Babidi hasta Vegeta
-const FING = [240 + (340 - 200) * .82 * 1.05, GY - (620 - 266) * .82 * 1.05];
-document.querySelectorAll('#s11rings .mr').forEach((el, i) => {
-  for (let k = 0; k < 3; k++) {
-    const t = 55.96 + k * .55 + i * .11;
-    ft(el, { attr: { cx: FING[0], cy: FING[1] }, opacity: .9 }, { attr: { cx: 580, cy: 780 }, opacity: 0, duration: .55, ease: 'power1.in' }, t);
-  }
-});
-sfx(55.96, 'magic', .6); tl.to(RIGS.s11V, { r: -3, duration: .12, yoyo: true, repeat: 7 }, 56.1);
-show('s11gw', 57.04); ft(RIGS.s11G, { x: 300 }, { x: 0, duration: .3, ease: 'power3.out' }, 57.04); sfx(57.04, 'whoosh', .5);
-pill('SOLO PARA PELEAR CONTRA GOKU', 57.04, 58.5, '', null);
-// transformación
-tl.set('#s11V', { opacity: 0 }, 58.62); tl.set('#s11M', { opacity: 1 }, 58.62);
-powerUp('s11M', 58.62, '#c070ff'); auraPulse('s11M', 58.62, 60.0);
-popS('s11m', 58.62, null); tl.to('#s11m', { opacity: 0, duration: .6 }, 59.0);
-cam(58.62, 580, 820, 1.3, .3, 'power3.out'); cam(59.4, 580, 960, 1.0, .5);
-big('MAJIN VEGETA', 58.62, 60.0, '#ffd23f', 140);
-sfx(58.98, 'stinger', .6);
+// --- 10 · 33.66–39.64 · ¿por qué? flechas → hipocampo OFF → solo obedeces
+cut(33.66); scene('s10', 33.66, 39.64);
+cam(33.66, 540, 960, 1.0, 0);
+big('¿POR QUÉ?', 33.66, 34.4, '#ffffff', 170);
+ARR.forEach((_, i) => popS('s10a' + i, 34.7 + i * .14, 'blip', .5));
+ARR.forEach((_, i) => tl.to(RIGS['s10a' + i], { y: -14, duration: .2, yoyo: true, repeat: 9 }, 35.3 + i * .05));
+walk('s10T', 34.5, 39.6, .34, .22, 2);
+pill('SIGUES LAS FLECHAS', 34.98, 35.76, 'b', null);
+popS('s10th', 35.76, 'pop', .6);
+tl.to('#s10hip', { opacity: .12, duration: .35 }, 36.48); sfx(36.48, 'switch', .9); sfx(36.52, 'reverse', .35);
+popS('s10off', 36.7, 'buzz', .5);
+lab('NO DECIDES NADA', 37.32, 38.36, 'r');
+hideS('s10th', 38.2, .15); hideS('s10off', 38.2, .15);
+stamp('SOLO OBEDECES', 38.38, 39.64, '#6fd3ff', 400);
 
-// --- 12 · 60.0–63.94 · ¿cómo usas a tu propio Vegeta?
-cut(60.0); scene('s12', 60.0, 63.94);
-cam(60.0, 540, 960, 1.0, 0);
-breathe('s12V', 60.0, 63.9, 4); breathe('s12M', 60.0, 63.9, 5); auraPulse('s12M', 60.0, 63.94);
-pill('¿CÓMO LO USAS?', 60.92, 63.94, 'y');
-popS('s12ok', 61.96, 'ding', .7);
-popS('s12no', 62.98, 'buzz', .6); tl.to(RIGS.s12no, { x: 10, duration: .05, yoyo: true, repeat: 5 }, 63.1);
+// --- 11 · 39.64–44.0 · lo oscuro: Alzheimer
+cut(39.64); scene('s11', 39.64, 44.0);
+cam(39.64, 540, 960, 1.0, 0); cam(39.66, 540, 960, 1.08, 4.2, 'none');
+big('LO OSCURO', 40.12, 41.0, '#ff4a5a', 170); sfx(40.12, 'rumble', .6);
+popS('s11b', 41.0, null);
+tl.to('#s11bhip', { opacity: .3, duration: .2, yoyo: true, repeat: 5 }, 41.2);
+sfx(41.14, 'heartbeat', .55);
+tl.set('#s11bcrk', { opacity: 1 }, 42.7); sfx(42.7, 'crack', .8); shake(42.72, .3, 16); flash(42.7, '#ff2d40', .4, .25);
+big('ALZHEIMER', 43.08, 44.0, '#ff2d40', 170, 280); sfx(43.08, 'stinger', .5);
 
-// --- 13 · 63.94–68.96 · paso 1
-cut(63.94); scene('s13', 63.94, 68.96);
-cam(63.94, 540, 960, 1.0, 0);
-badge('1', 'Alguien de tu nivel', 63.94, 68.96);
-breathe('s13T', 63.94, 66.9, 4); breathe('s13R', 63.94, 66.9, 4);
-popS('s13eq', 65.56, 'pop', .6); tl.to(RIGS.s13eq, { s: 1.08, duration: .25, yoyo: true, repeat: 1 }, 65.9);
-hideS('s13eq', 66.4, .15);
-popS('s13s0', 67.02, 'ding', .6); pose('s13R', 1, 67.02); pose('s13R', 0, 67.9);
-tl.set('#s13s0', { opacity: 0 }, 68.06); popS('s13s1', 68.06, 'ding', .7); pose('s13T', 1, 68.06);
-lab('PAREJOS', 67.02, 68.96, 'y', null);
+// --- 12 · 44.0–47.82 · Haki de reserva + cuando seas viejo
+cut(44.0); scene('s12', 44.0, 47.82);
+cam(44.0, 540, 900, 1.15, 0); cam(44.02, 540, 960, 1.0, .6, 'power2.out');
+sfx(44.02, 'aura', .55); auraPulse('s12Z', 44.0, 46.0); breathe('s12Z', 44.0, 46.0, 4);
+pill('UN BUEN MAPA MENTAL', 44.18, 45.2, 'y', null);
+show('s12bolt', 45.24); tl.to('#s12bolt', { opacity: .2, duration: .06, yoyo: true, repeat: 9 }, 45.3); sfx(45.24, 'zap', .6);
+big('HAKI DE RESERVA', 45.24, 46.2, '#c070ff', 130); flash(45.24, '#7a1fa0', .4, .3);
+tl.to(RIGS.s12Z, { x: -230, s: .85, duration: .35, ease: 'power3.out' }, 46.2);
+show('s12Ow', 46.2); enter('s12O', 46.2, 400, .35);
+walk('s12O', 46.6, 47.8, .4, .2, 2);
+lab('PARA CUANDO SEAS VIEJO', 46.36, 47.82, 'b');
 
-// --- 14 · 68.96–74.84 · paso 2
-cut(68.96); scene('s14', 68.96, 74.84);
-cam(68.96, 540, 960, 1.0, 0);
-badge('2', 'Compite contra sus números', 68.96, 74.84);
-breathe('s14T', 68.96, 74.8, 4); breathe('s14R', 68.96, 71.4, 4);
-ft('#s14pan', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .3, ease: 'back.out(2)' }, 70.48); sfx(70.48, 'pop', .6);
-ft('#s14bar', { attr: { width: 0 } }, { attr: { width: 400 }, duration: .5, ease: 'power2.out' }, 70.7); sfx(70.7, 'blip', .5);
-popS('s14x', 71.46, 'buzz', .6); hideS('s14x', 72.6, .15);
-lab('NO CONTRA ÉL', 71.46, 72.8, 'r', null);
-tl.set('#s14line', { opacity: 1 }, 72.82); sfx(72.82, 'glint', .6); tl.to('#s14line', { opacity: .3, duration: .15, yoyo: true, repeat: 3 }, 72.9);
-popS('s14flag', 74.02, 'ding', .7);
-ft('#s14bar', { attr: { width: 400 } }, { attr: { width: 560 }, duration: .6, ease: 'power2.inOut' }, 74.02); sfx(74.02, 'riser', .4);
-lab('TU PRÓXIMA META', 74.02, 74.84, 'y', null);
+// --- 13 · 47.82–53.12 · mi opinión: no es tonto
+cut(47.82); scene('s13', 47.82, 53.12);
+cam(47.82, 540, 960, 1.0, 0); auraPulse('s13Z', 47.82, 53.12); breathe('s13Z', 47.82, 50.2, 4);
+pill('MI OPINIÓN', 47.82, 49.0, 'y');
+big('NO ES TONTO', 49.18, 50.2, '#7dffa8', 160); sfx(49.3, 'metal', .45);
+pose('s13Z', 1, 50.2);
+sfx(50.8, 'swish', .4);
+walk('s13Z', 50.8, 52.9, .3, .3, 3); tl.to(RIGS.s13Z, { x: -160, duration: 1.0, ease: 'sine.inOut' }, 50.8); tl.to(RIGS.s13Z, { x: 180, duration: 1.1, ease: 'sine.inOut' }, 51.8);
+lab('SIGUE INTENTANDO', 50.8, 53.12, 'y');
 
-// --- 15 · 74.84–79.4 · paso 3
-cut(74.84); scene('s15', 74.84, 79.4);
-cam(74.84, 540, 960, 1.0, 0);
-badge('3', 'Pregúntale cómo lo hizo', 74.84, 79.4);
-breathe('s15T', 74.84, 77.6, 4);
-popS('s15tro', 76.0, 'ding', .8); pose('s15R', 1, 76.0);
-tl.to(RIGS.s15T, { x: -12, duration: .08, yoyo: true, repeat: 5 }, 76.7); sfx(76.7, 'thud', .4);
-popS('s15q', 77.76, 'pop', .7);
-popS('s15bulb', 78.7, 'glint', .7);
+// --- 14 · 53.12–55.88 · ¿cómo entrenas tu orientación?
+cut(53.12); scene('s14', 53.12, 55.88);
+cam(53.12, 540, 960, 1.0, 0); auraPulse('s14T', 53.12, 55.88); breathe('s14T', 53.12, 55.8, 4);
+popS('s14cmp', 53.4, 'glint', .7);
+tl.fromTo(RIGS.s14ndl, { r: 0 }, { r: 1080 + 20, duration: 1.6, ease: 'power3.out', immediateRender: false }, 54.0); sfx(54.0, 'swish', .5);
+pill('¿CÓMO ENTRENAS TU ORIENTACIÓN?', 54.0, 55.88, 'y', null);
+sfx(54.82, 'ding', .6);
 
-// --- 16 · 79.4–83.32 · entrenando juntos con Whis
-cut(79.4); scene('s16', 79.4, 83.32);
-cam(79.4, 540, 1000, 1.12, 0); cam(79.42, 540, 960, 1.0, 1.6, 'sine.inOut');
-auraPulse('s16G', 79.4, 83.32); auraPulse('s16V', 79.4, 83.32);
-show('s16ww', 79.54); ft(RIGS.s16W, { y: 60 }, { y: 0, duration: .4, ease: 'power2.out' }, 79.54); sfx(79.54, 'shimmer', .5);
-pill('GOKU Y VEGETA', 80.28, 81.8, 'y');
-strike('s16G', 81.28, .2, 60); boom('s16i1', 81.3);
-strike('s16V', 81.9, .2, -60); boom('s16i2', 81.92);
-strike('s16G', 82.44, .3, 60); boom('s16i3', 82.46, 'impact', 1);
+// --- 15 · 55.88–60.86 · paso 1
+cut(55.88); scene('s15', 55.88, 60.86);
+cam(55.88, 540, 960, 1.0, 0); breathe('s15T', 55.88, 60.8, 4);
+badge('1', 'Mira el mapa', 55.88, 60.86);
+popS('s15map', 57.7, 'pop', .7); sfx(57.7, 'swish', .4);
+popS('s15clk', 58.12, null);
+const C30 = { v: 0 };
+ft(C30, { v: 0 }, { v: 30, duration: .7, ease: 'none', onUpdate: () => { $('s15num').textContent = Math.round(C30.v); } }, 58.12);
+for (let t = 58.14; t < 58.84; t += .07) sfx(t, 'tick', .3);
+sfx(58.86, 'ding', .6); hideS('s15clk', 59.2, .15);
+drawPath('#s15route', 59.26, .9); sfx(59.26, 'swish', .45);
+pose('s15T', 1, 59.4);
+popS('s15th', 59.9, 'pop', .6);
+lab('ARMA LA RUTA EN TU CABEZA', 59.26, 60.86, 'y', null);
 
-// --- 17 · 83.32–86.82 · etiqueta a tu Vegeta
-cut(83.32); scene('s17', 83.32, 86.82);
-cam(83.32, 540, 960, 1.0, 0);
-breathe('s17V', 83.32, 86.8, 4);
-popS('s17tag', 83.74, 'pop', .8); tl.to(RIGS.s17tag, { s: 1.06, duration: .3, yoyo: true, repeat: 3 }, 84.1);
-popS('s17arr', 84.38, 'blip', .6); tl.to(RIGS.s17arr, { y: 20, duration: .25, yoyo: true, repeat: 5 }, 84.6);
-// tú vas por él
-show('s17tw', 85.22); ft(RIGS.s17T, { x: -450 }, { x: 0, duration: .5, ease: 'power3.out' }, 85.22);
-runCycle('s17T', 85.22, 86.82, .16, .3); zoomLines(85.22, 86.82, 's17sl');
-lab('YA VOY POR TI', 85.8, 86.82, 'r');
-tl.to(RIGS.s17V, { r: -2, duration: .2 }, 85.96);
+// --- 16 · 60.86–67.14 · paso 2
+cut(60.86); scene('s16', 60.86, 67.14);
+cam(60.86, 540, 960, 1.0, 0);
+badge('2', '3 puntos fijos', 60.86, 67.14);
+tl.fromTo('#s16route', { attr: { 'stroke-dashoffset': 0 } }, { attr: { 'stroke-dashoffset': -440 }, duration: 6.2, ease: 'none', immediateRender: false }, 60.86);
+popS('s16a', 64.12, 'pop', .6); popS('s16ac', 64.3, 'ding', .6);
+popS('s16b', 64.66, 'pop', .6); popS('s16bc', 64.84, 'ding', .6);
+popS('s16c', 65.22, 'pop', .6); popS('s16cc', 65.4, 'ding', .6);
+lab('TIENDA · PUENTE · ESQUINA', 64.12, 65.84, 'b', null);
+popS('s16d', 65.84, 'swish', .5); tl.to(RIGS.s16d, { x: 120, duration: 1.2, ease: 'sine.inOut' }, 65.9);
+popS('s16dx', 66.2, 'buzz', .55);
+lab('QUE NO SE MUEVAN', 65.84, 66.6, 'r', null);
+show('s16Zw', 66.6); ft(RIGS.s16Z, { x: 400 }, { x: 0, duration: .3, ease: 'power3.out' }, 66.6); sfx(66.6, 'whoosh', .5);
+lab('¡ZORO!', 66.6, 67.14, 'y', null);
 
-// --- 18 · 86.82–END · vuelve al inicio (bucle)
-cut(86.82);
-hookTL('s18', 86.82, 88.86, 90.1, END + 1, false);
+// --- 17 · 67.14–70.98 · paso 3
+cut(67.14); scene('s17', 67.14, 70.98);
+cam(67.14, 540, 960, 1.0, 0);
+badge('3', 'Calle nueva, sin GPS', 67.14, 70.98);
+popS('s17cal', 67.74, 'pop', .6);
+tl.set('#s17chk', { opacity: 1 }, 68.1); sfx(68.1, 'ding', .6);
+popS('s17sign', 68.7, 'pop', .6);
+walk('s17T', 68.7, 70.9, .3, .3, 3); tl.to(RIGS.s17T, { x: 170, duration: 2.2, ease: 'none' }, 68.7);
+popS('s17house', 68.92, 'pop', .5);
+popS('s17ph', 70.06, 'buzz', .6); tl.to(RIGS.s17ph, { x: 10, duration: .05, yoyo: true, repeat: 5 }, 70.2);
+
+// --- 18 · 70.98–74.24 · etiqueta a tu Zoro
+cut(70.98); scene('s18', 70.98, 74.24);
+cam(70.98, 540, 960, 1.0, 0); breathe('s18Z', 70.98, 72.8, 4);
+popS('s18tag', 71.0, 'pop', .8); tl.to(RIGS.s18tag, { s: 1.06, duration: .3, yoyo: true, repeat: 3 }, 71.3);
+popS('s18arr', 71.52, 'blip', .6); tl.to(RIGS.s18arr, { y: 20, duration: .25, yoyo: true, repeat: 3 }, 71.7);
+hideS('s18arr', 72.9, .15);
+popS('s18wc', 72.98, 'pop', .6);
+pose('s18Z', 1, 72.98); popS('s18q', 73.18, 'blip', .6);
+walk('s18Z', 73.2, 74.2, .3, .25, 3); tl.to(RIGS.s18Z, { x: -200, duration: 1.0, ease: 'none' }, 73.2);
+lab('SE PIERDE BUSCANDO EL BAÑO', 72.04, 74.24, 'y', null);
+
+// --- 19 · 74.24–END · vuelve al inicio (bucle)
+cut(74.24);
+hookTL('s19', 74.24, 75.44, 75.98, 76.36, END + 1);
 
 // =============================================================== SUBTÍTULOS
 (function subs() {
-  const RED = /^(rival|rivalidad|vegeta|majin|trampa|oscuro|orgullo|babidi|cuidado|controlara|gane|escondas)$/i;
-  const YEL = /^(goku|ultra|instinto|saiyajin|super|cinco|segundos|kilómetro|ciencia|nivel|1|2|3|meta|marca|números|juntos|miles|medalla|príncipe|dios)$/i;
-  const BLU = /^(blue|real|piernas|entrenamiento|nueva|york|universidad|corredores|etiqueta)$/i;
+  const RED = /^(pierde|chiste|oscuro|alzheimer|apaga|obedeces|perdieron|nada|tonto|sin|ataca|gps)$/i;
+  const YEL = /^(zoro|recta|línea|25 000|hipocampo|grande|mapa|mental|tres|30|segundos|1|2|3|haki|fuerte|espadachín|ciencia|memoria|espacial|calle|nueva|camino|ruta)$/i;
+  const BLU = /^(londres|taxistas|maguire|eleanor|cerebro|mcgill|universidad|tienda|puente|esquina|orientación|etiqueta|flechas|reserva|barco|sombrero|paja|semana|neurocientífica|conductores)$/i;
   const W = window.WORDS, chunks = []; let cur = [];
   W.forEach((w, i) => {
     cur.push(w); const nx = W[i + 1];

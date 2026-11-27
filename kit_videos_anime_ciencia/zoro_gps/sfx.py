@@ -46,7 +46,12 @@ def neon():
     gate = np.ones(len(tt))
     for a, b in ((.05, .1), (.16, .22)): gate[int(a * SR):int(b * SR)] = .15
     return norm(hum * gate * env(len(tt), curve=2), .4)
-G = dict(powerup=powerup, aura=aura, magic=magic, step=B.GEN['step'], buzz=B.GEN['buzz'], stinger=B.GEN['stinger'], rumble=B.GEN['rumble'], boom=B.boom, bag=bag, bf=bf, neon=neon, crackle=crackle,
+def horn():  # bocina de taxi (dos tonos)
+    tt = t(.45); x = np.sign(np.sin(2 * np.pi * 420 * tt)) * .5 + np.sign(np.sin(2 * np.pi * 530 * tt)) * .5
+    x = lp_fast(x, 2500) * np.minimum(1, np.linspace(0, 30, len(tt))) * np.minimum(1, np.linspace(8, 0, len(tt)))
+    x[int(SR * .18):int(SR * .24)] *= .1
+    return norm(x, .55)
+G = dict(horn=horn, heartbeat=B.heartbeat, switch=B.switch, metal=B.metal, splash=B.splash, reverse=B.reverse, sparkle=B.sparkle, powerup=powerup, aura=aura, magic=magic, step=B.GEN['step'], buzz=B.GEN['buzz'], stinger=B.GEN['stinger'], rumble=B.GEN['rumble'], boom=B.boom, bag=bag, bf=bf, neon=neon, crackle=crackle,
          whoosh=B.whoosh, impact=B.impact, pop=B.pop, tick=B.tick, slam=B.slam, thud=B.thud, thump=B.thump,
          chain=B.chainfx, glass=B.glass, crack=B.crack, zap=B.zap, ding=B.ding, riser=B.riser, shimmer=B.shimmer,
          glint=B.glint, blip=B.blip, swish=B.swish, hit=B.hit)

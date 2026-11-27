@@ -10,3 +10,8 @@ video/*/dl/
 kit_videos_anime_ciencia/**/stills/
 kit_videos_anime_ciencia/**/storyboard.png
 kit_videos_anime_ciencia/**/part*.mp4
+kit_videos_anime_ciencia/**/cues.json
+kit_videos_anime_ciencia/**/mix.wav
+kit_videos_anime_ciencia/**/parts.txt
+kit_videos_anime_ciencia/**/render.log
+kit_videos_anime_ciencia/**/video.mp4
