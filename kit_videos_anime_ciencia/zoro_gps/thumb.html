@@ -1,0 +1,32 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}
+html,body{margin:0;background:#000}
+#st{position:relative;width:1080px;height:1440px;overflow:hidden}
+svg{position:absolute;left:0;top:0}
+.t{position:absolute;left:0;right:0;text-align:center;font-family:Anton,Impact;letter-spacing:3px;line-height:1}
+#t1{top:36px;font-size:180px;color:#fff}#t1 b{color:#ff3b4a;font-weight:400}
+#t2{top:1112px;font-size:140px;line-height:1.02;color:#ffd23f;transform:rotate(-3deg)}
+</style></head><body><div id="st"><svg id="s" width="1080" height="1440" viewBox="0 0 1080 1440"></svg>
+<div class="t" id="t1">SIN <b>VEGETA</b></div><div class="t" id="t2">NO HAY<br>ULTRA INSTINTO</div></div>
+<script src="chars.js"></script><script>
+let seed=9;const rnd=()=>((seed=(seed*16807)%2147483647)/2147483647),R=(a,b)=>a+(b-a)*rnd();
+function shT(r){const s=[];for(let a=0;a<360;a+=22.5)s.push(`${(Math.cos(a*Math.PI/180)*r).toFixed(1)}px ${(Math.sin(a*Math.PI/180)*r).toFixed(1)}px 0 #000`);return s.join(',')+`,0 ${r+6}px ${r+10}px rgba(0,0,0,.7)`;}
+t1.style.textShadow=shT(12);t2.style.textShadow=shT(11);
+let m=`<defs><clipPath id="clipR"><rect x="214" y="-100" width="300" height="400"/></clipPath>
+<linearGradient id="gL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a4a8e"/><stop offset="1" stop-color="#0c1030"/></linearGradient>
+<linearGradient id="gR" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a5fd0"/><stop offset="1" stop-color="#071438"/></linearGradient>
+<radialGradient id="glow"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".3" stop-color="#9fe6ff" stop-opacity=".7"/><stop offset="1" stop-color="#2a8cff" stop-opacity="0"/></radialGradient>
+<filter id="g6" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<polygon points="0,0 640,0 440,1440 0,1440" fill="url(#gL)"/><polygon points="640,0 1080,0 1080,1440 440,1440" fill="url(#gR)"/>`;
+for(const [cx,col] of [[260,'#dfe6ff'],[820,'#7fd0ff']])for(let i=0;i<34;i++){const a=i/34*Math.PI*2+R(-.05,.05),r0=R(260,380);m+=`<line x1="${cx+Math.cos(a)*r0}" y1="${720+Math.sin(a)*r0}" x2="${cx+Math.cos(a)*1400}" y2="${720+Math.sin(a)*1400}" stroke="${col}" stroke-width="${R(3,8).toFixed(1)}" opacity="${R(.15,.4).toFixed(2)}"/>`;}
+const put=(o,x,G,S,flip)=>`<g transform="translate(${flip?x+200*S:x-200*S},${G-620*S}) scale(${flip?-S:S},${S})">${person(o)}</g>`;
+const UI={...GI,top:'bare',topC:GSKIN,abs:true,sleeve:'none',skin:GSKIN,hair:'ui',hairC:'#dfe3ee',hairHi:'#fff',brow:'#aab3c6',iris:'#b9c3d6',noPupil:true,angry:true,mouth:'grit',aura:'#cfd8ff',auraOp:.4,pose:'guard'};
+const VG={...SAIYAN,armor:'#e6b43a',pads:'#e6b43a',skin:GSKIN,hair:'vegeta',hairC:'#17151a',hairHi:'#6c6a80',iris:'#1d1c22',angry:true,mouth:'smirk',pose:'cross',aura:'#3fc3ff',auraOp:.3};
+m+=put(UI,290,1620,2.3,false)+put(VG,800,1640,2.25,true);
+// rayo entre los dos
+let d='M540,240';let y=240;for(let k=0;k<10;k++){y+=95;d+=` L${(540+R(-45,45)).toFixed(0)},${y}`;}
+m+=`<circle cx="540" cy="700" r="230" fill="url(#glow)"/><path d="${d}" fill="none" stroke="#9fe6ff" stroke-width="22" opacity=".5" filter="url(#g6)"/><path d="${d}" fill="none" stroke="#fff" stroke-width="9" stroke-linejoin="round"/>`;
+m+=`<circle cx="540" cy="760" r="78" fill="#ffd23f" stroke="#000" stroke-width="10"/><text x="540" y="792" font-family="Anton" font-size="88" text-anchor="middle">VS</text>`;
+m+=`<rect y="1090" width="1080" height="350" fill="#000" opacity=".4"/>`;
+s.innerHTML=m;
+</script></body></html>

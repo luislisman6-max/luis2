@@ -2,3 +2,8 @@ node_modules/
 dist/
 .env
 .env.*
+
+# kit de video: temporales de render
+kit_videos_anime_ciencia/**/stills/
+kit_videos_anime_ciencia/**/storyboard.png
+kit_videos_anime_ciencia/**/part*.mp4
