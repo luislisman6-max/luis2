@@ -1,7 +1,10 @@
+__pycache__/
 node_modules/
 dist/
 .env
 .env.*
+video/*/work/
+video/*/dl/
 
 # kit de video: temporales de render
 kit_videos_anime_ciencia/**/stills/
