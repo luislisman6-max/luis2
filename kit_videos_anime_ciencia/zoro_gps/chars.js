@@ -1,4 +1,4 @@
-// Motor de personajes "Vegeta, el rival" — mismo estilo que Black Flash (vector plano, contorno fino, sombra suave).
+// Motor de personajes "Zoro y el GPS" (basado en "Vegeta, el rival") — mismo estilo que Black Flash (vector plano, contorno fino, sombra suave).
 // Caja local 400x660, centro x=200, pies en y≈620.
 const OL = '#15121a';
 const fsh = (a = 0.22) => `fill="${OL}" fill-opacity="${a}"`;
@@ -30,7 +30,7 @@ function hair(o, cx, cy) {
   s += g + `<path d="${H}" fill="${o.hairC}" stroke="${OL}" stroke-width="3.2" stroke-linejoin="round"/>`;
   // sombra derecha del pelo y brillos
   s += `<path d="${H}" fill="${OL}" fill-opacity=".16" clip-path="url(#clipR)"/>`;
-  s += `<path d="M168,70 L180,44 M196,52 L204,20 M226,62 L238,38" stroke="${o.hairHi || '#fff'}" stroke-width="4.5" stroke-linecap="round" opacity=".55"/>`;
+  s += `<path d="${o.hairHiD || 'M168,70 L180,44 M196,52 L204,20 M226,62 L238,38'}" stroke="${o.hairHi || '#fff'}" stroke-width="4.5" stroke-linecap="round" opacity=".55"/>`;
   s += '</g>';
   return s;
 }
@@ -46,12 +46,18 @@ function head(o) {
   const ey = cy + 8, ex = 18;
   for (const k of [-1, 1]) {
     const x = cx + k * ex;
+    if (o.scarEye && k > 0) {
+      s += `<path d="M${x - 12},${ey + 1} Q${x},${ey + 6} ${x + 12},${ey + 1}" fill="none" stroke="${OL}" stroke-width="3.4" stroke-linecap="round"/>
+            <path d="M${x + 3},${ey - 24} L${x - 1},${ey + 22}" stroke="#9b4b3c" stroke-width="3.6" stroke-linecap="round"/>
+            <path d="M${x - 4},${ey - 14} L${x + 7},${ey - 13} M${x - 5},${ey + 12} L${x + 5},${ey + 13}" stroke="#9b4b3c" stroke-width="2" stroke-linecap="round"/>`;
+      continue;
+    }
     // ojo anguloso estilo Toriyama
     const top = o.angry ? `M${x - 12},${ey - 1 - (k > 0 ? 3 : 0)} L${x + 12},${ey - 1 - (k < 0 ? 3 : 0)}` : `M${x - 12},${ey - 2} Q${x},${ey - 10} ${x + 12},${ey - 2}`;
     s += `<path d="${top} L${x + 11},${ey + 6} Q${x},${ey + 9} ${x - 11},${ey + 6} Z" fill="#fff" stroke="${OL}" stroke-width="2"/>
-          <ellipse cx="${x + k * 1}" cy="${ey + 2}" rx="${o.calm ? 5 : 5.5}" ry="6.5" fill="${o.iris}"/>
-          ${o.noPupil ? '' : `<ellipse cx="${x + k * 1}" cy="${ey + 3}" rx="2.6" ry="3.4" fill="${OL}"/>`}
-          <circle cx="${x + k * 1 - 2}" cy="${ey}" r="1.6" fill="#fff"/>
+          <ellipse cx="${x + k * 1 + (o.lookX || 0)}" cy="${ey + 2 + (o.lookY || 0)}" rx="${o.calm ? 5 : 5.5}" ry="6.5" fill="${o.iris}"/>
+          ${o.noPupil ? '' : `<ellipse cx="${x + k * 1 + (o.lookX || 0)}" cy="${ey + 3 + (o.lookY || 0)}" rx="2.6" ry="3.4" fill="${OL}"/>`}
+          <circle cx="${x + k * 1 - 2 + (o.lookX || 0)}" cy="${ey + (o.lookY || 0)}" r="1.6" fill="#fff"/>
           <path d="${top}" fill="none" stroke="${OL}" stroke-width="3.4" stroke-linecap="round"/>`;
     if (o.veins) s += `<path d="M${x + k * 14},${ey + 2} l${k * 6},6 M${x - 8},${ey + 12} q${k * 6},4 ${k * 14},2" fill="none" stroke="${OL}" stroke-opacity=".5" stroke-width="2" stroke-linecap="round"/>`;
   }
@@ -146,6 +152,7 @@ function person(o) {
              <path d="M180,420 L220,420 L230,604 L170,604 Z" fill="${o.robe}" stroke="${OL}" stroke-width="2.6"/>
 `;
   }
+  back += (o.mid || '');
   // brazos
   let LA, RA;
   if (pose === 'guard') { LA = [[150, 240], [140, 330], [176, 268]]; RA = [[250, 240], [262, 326], [244, 236]]; }
@@ -153,11 +160,16 @@ function person(o) {
   else if (pose === 'run') { LA = [[150, 240], [126, 300], [160, 252]]; RA = [[250, 240], [272, 320], [292, 372]]; }
   else if (pose === 'run2') { RA = [[250, 240], [274, 300], [240, 252]]; LA = [[150, 240], [128, 320], [108, 372]]; }
   else if (pose === 'up') { LA = [[150, 240], [126, 160], [118, 80]]; RA = [[250, 240], [272, 330], [262, 404]]; }
+  else if (pose === 'phone') { LA = [[150, 240], [134, 330], [140, 404]]; RA = [[250, 240], [266, 322], [222, 286]]; }
+  else if (pose === 'point') { LA = [[150, 240], [134, 330], [140, 404]]; RA = [[250, 240], [304, 206], [356, 172]]; }
+  else if (pose === 'scratch') { LA = [[150, 240], [134, 330], [140, 404]]; RA = [[250, 240], [292, 190], [240, 112]]; }
   else if (pose === 'cross') { LA = [[150, 242], [132, 318], [232, 300]]; RA = [[250, 242], [268, 320], [168, 310]]; }
   else { LA = [[150, 240], [134, 330], [140, 404]]; RA = [[250, 240], [266, 330], [262, 404]]; }
   const armW = o.bare ? 28 : 32;
   const armSeg = (A) => {
-    let s = limb(A, armW, o.sleeve === 'long' ? o.topC : o.skin);
+    let s = limb(A, armW, o.sleeve === 'long' ? (o.sleeveC || o.topC) : o.skin);
+    if (o.bandR && A === RA) { { const P = lerp(A[0], A[1], .46), Q = lerp(A[0], A[1], .58), dx = A[1][0] - A[0][0], dy = A[1][1] - A[0][1], L = Math.hypot(dx, dy), nx = -dy / L * (armW / 2 + 3), ny = dx / L * (armW / 2 + 3);
+      s += `<path d="M${P[0] + nx},${P[1] + ny} L${Q[0] + nx},${Q[1] + ny} L${Q[0] - nx},${Q[1] - ny} L${P[0] - nx},${P[1] - ny} Z" fill="${o.bandR}" stroke="${OL}" stroke-width="3" stroke-linejoin="round"/>`; } s += `<path d="M${lerp(A[0], A[1], .5).join(',')} l14,10 m-14,-10 l18,-2" stroke="${OL}" stroke-width="7" stroke-linecap="round"/><path d="M${lerp(A[0], A[1], .5).join(',')} l14,10 m-14,-10 l18,-2" stroke="${o.bandR}" stroke-width="3.5" stroke-linecap="round"/>`; }
     if (o.sleeve === 'short') s += limb([A[0], lerp(A[0], A[1], .45)], armW + 8, o.under || o.topC);
     if (o.cuff) s += pose === 'cross' ? limb([lerp(A[1], A[2], .72), lerp(A[1], A[2], .88)], armW + 7, o.cuff) : limb([lerp(A[1], A[2], .5), lerp(A[1], A[2], .8)], armW + 7, o.cuff);
     return s;
@@ -227,17 +239,74 @@ const GI = { topC: '#f26b1d', bottom: '#f26b1d', under: '#1f3c8f', belt: '#2d47b
 const SAIYAN = { topC: '#24346f', bottom: '#24346f', sleeve: 'long', top: 'suit', glove: '#f4f2ec', cuff: '#f4f2ec', boots: '#f4f2ec', shoes: '#f4f2ec', toe: '#e6b43a' };
 const GSKIN = '#f6cfa6';
 
+// =================== ZORO Y EL GPS ===================
+// Referencia: Roronoa Zoro post-timeskip — pelo verde corto, ojo izquierdo cerrado con cicatriz vertical,
+// 3 aretes dorados en la oreja izquierda, abrigo largo verde oscuro abierto, faja roja anudada, cicatriz diagonal
+// en el pecho (hombro izq. -> cadera der.), pañuelo negro en el brazo izquierdo, pantalón oscuro, botas negras,
+// 3 katanas en la cadera izquierda: Wado Ichimonji (blanca), Sandai Kitetsu (roja), Enma (negra, mango morado).
+const ZSKIN = '#e8b88b', ZCOAT = '#2f5b3c', ZCOAT_D = '#24482f', ZSASH = '#c3262f';
+const zoroHair = 'M153,142 Q146,100 166,86 L166,72 L180,80 L186,64 L198,76 L208,60 L216,76 L230,66 L232,84 Q256,98 247,142 L241,124 Q236,110 226,112 L220,100 L210,110 L200,98 L190,110 L180,100 L172,112 Q162,112 159,124 Z';
+HAIR.zoro = zoroHair;
+const zoroEarrings = [0, 1, 2].map(i => `<path d="M${248 + i * 1.5},${150 + i * 7} q5,2 5,7 q-1,5 -5,4" fill="none" stroke="${OL}" stroke-width="4.4"/><path d="M${248 + i * 1.5},${150 + i * 7} q5,2 5,7 q-1,5 -5,4" fill="none" stroke="#f2c23a" stroke-width="2.4"/>`).join('');
+// abrigo: paneles superiores abiertos + faja + falda del abrigo
+function zoroCoat(sash = true) {
+  const up = (k) => { const X = x => k < 0 ? x : 400 - x; // espejo
+    return `<path d="M${X(144)},230 Q${X(160)},222 ${X(180)},224 L${X(166)},404 L${X(150)},404 Q${X(140)},330 ${X(144)},230 Z" fill="${ZCOAT}" stroke="${OL}" stroke-width="3" stroke-linejoin="round"/>`; };
+  let s = up(-1) + up(1);
+  s += `<path d="M234,224 Q256,232 256,300 L250,404 L234,404 Z" ${fsh(0.2)}/>`;
+  // cuello levantado detrás de la nuca
+  s += `<path d="M164,226 Q160,206 172,198 L182,224 Z M236,226 Q240,206 228,198 L218,224 Z" fill="${ZCOAT_D}" stroke="${OL}" stroke-width="2.6" stroke-linejoin="round"/>`;
+  // cicatriz del pecho con puntadas
+  s += `<path d="M228,244 Q206,320 176,392" fill="none" stroke="#a9604c" stroke-width="4" stroke-linecap="round"/>`;
+  for (let i = 1; i < 8; i++) { const t = i / 8, x = 228 - 52 * t - 6 * t * t, y = 244 + 148 * t; s += `<path d="M${x - 6},${y - 3} L${x + 6},${y + 3}" stroke="#a9604c" stroke-width="2" stroke-linecap="round"/>`; }
+  // falda del abrigo (debajo de la faja)
+  s += `<path d="M150,420 L250,420 L272,566 L208,570 L200,500 L192,570 L128,566 Z" fill="${ZCOAT}" stroke="${OL}" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M232,422 L272,566 L240,568 Z" ${fsh(0.2)}/>`;
+  if (sash) s += `<path d="M150,398 L250,398 L252,428 L148,428 Z" fill="${ZSASH}" stroke="${OL}" stroke-width="2.8" stroke-linejoin="round"/>
+        <path d="M150,410 L250,410" stroke="#fff" stroke-opacity=".18" stroke-width="5"/>
+        <path d="M160,414 Q148,436 140,486 L156,488 Q160,446 170,426 Z M168,414 Q170,440 168,474 L182,472 Q182,440 176,420 Z" fill="${ZSASH}" stroke="${OL}" stroke-width="2.6" stroke-linejoin="round"/>
+        <ellipse cx="166" cy="413" rx="13" ry="11" fill="${ZSASH}" stroke="${OL}" stroke-width="2.6"/>`;
+  return s;
+}
+// 3 katanas en la cadera izquierda: vainas (detrás) y mangos (delante)
+const SWORDS = [
+  { sh: '#f1efe8', hd: '#f6f4ee', wrap: '#1c1a22', ts: '#e2b23a' },   // Wado Ichimonji
+  { sh: '#8e1f27', hd: '#b8323a', wrap: '#2a1416', ts: '#3a3a44' },   // Sandai Kitetsu
+  { sh: '#1c1a22', hd: '#6a3d8c', wrap: '#1c1a22', ts: '#e2b23a' },   // Enma
+];
+const SA = [[236, 424], [245, 421], [254, 424]], SH = [[210, 366], [226, 362], [244, 364]];
+function swordsBack() {
+  return SWORDS.map((w, i) => { const a = SA[i], b = [316 + i * 16, 600 - i * 8];
+    return limb([a, b], 11, w.sh, 5); }).join('');
+}
+function swordsFront() {
+  return SWORDS.map((w, i) => { const a = SA[i], h = SH[i];
+    return limb([a, h], 12, w.hd, 5) +
+      `<path d="M${lerp(a, h, .25).join(',')} L${lerp(a, h, .35).join(',')} M${lerp(a, h, .5).join(',')} L${lerp(a, h, .6).join(',')} M${lerp(a, h, .75).join(',')} L${lerp(a, h, .85).join(',')}" stroke="${w.wrap}" stroke-width="9" stroke-opacity=".8"/>` +
+      `<ellipse cx="${a[0]}" cy="${a[1]}" rx="12" ry="7" transform="rotate(-55 ${a[0]} ${a[1]})" fill="${w.ts}" stroke="${OL}" stroke-width="2.4"/>`; }).join('');
+}
+const ZORO = { skin: ZSKIN, hair: 'zoro', hairC: '#57ad52', hairHi: '#c4ecb4', hairHiD: 'M176,96 L182,84 M200,90 L206,76 M222,94 L228,82',
+  brow: '#2c4a2a', iris: '#2a2a30', angry: true, scarEye: true, mouth: 'smirk',
+  top: 'bare', topC: ZSKIN, abs: true, sleeve: 'long', sleeveC: ZCOAT, bandR: '#17151c',
+  bottom: '#2b2d36', boots: '#1b1b22', shoes: '#1b1b22', headExtra: zoroEarrings, behind: swordsBack() };
+const qMarks = `<g font-family="Anton" font-size="64" fill="#ffd23a" stroke="${OL}" stroke-width="3" paint-order="stroke"><text x="268" y="70" transform="rotate(14 268 70)">?</text><text x="306" y="120" font-size="44" transform="rotate(24 306 120)">?</text><text x="98" y="86" font-size="48" transform="rotate(-16 98 86)">?</text></g>
+  <path d="M146,118 q-8,14 0,20 q8,-6 0,-20 Z" fill="#8fd3ff" stroke="${OL}" stroke-width="2"/>`;
+const capTaxi = `<path d="M150,128 Q150,84 200,82 Q252,84 252,122 Q236,112 200,112 Q166,112 150,128 Z" fill="#3a3a44" stroke="${OL}" stroke-width="3"/>
+  <path d="M150,126 Q196,108 262,124 Q266,134 252,134 Q200,122 152,136 Z" fill="#2a2a32" stroke="${OL}" stroke-width="2.6"/>
+  <path d="M158,104 Q200,92 240,104" stroke="#fff" stroke-opacity=".18" stroke-width="5" fill="none"/>
+  <path d="M154,140 L154,168 M246,140 L246,168" stroke="#7a7a80" stroke-width="7" stroke-linecap="round"/>`;
+const youHair = `<path d="M152,146 Q144,76 200,74 Q258,76 248,146 Q246,108 228,100 L222,118 L210,98 L196,118 L186,98 L174,116 Q156,112 152,146 Z" fill="#4a2f1e" stroke="${OL}" stroke-width="3"/>`;
+const phone = `<g transform="rotate(-8 214 262)"><rect x="196" y="232" width="36" height="62" rx="6" fill="#1b1b22" stroke="${OL}" stroke-width="3"/><rect x="200" y="238" width="28" height="48" rx="3" fill="#2f9be6"/>
+  <path d="M206,278 L214,252 L222,278 L214,272 Z" fill="#fff"/><path d="M200,262 L228,262" stroke="#9ee0ff" stroke-width="2" opacity=".7"/></g>`;
+const mapPaper = `<g transform="rotate(-12 110 300)"><path d="M70,250 L104,258 L138,248 L160,256 L160,340 L138,332 L104,342 L70,334 Z" fill="#f4ead2" stroke="${OL}" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M104,258 L104,342 M138,248 L138,332" stroke="${OL}" stroke-opacity=".25" stroke-width="2"/><path d="M80,320 Q100,290 120,300 T150,268" fill="none" stroke="#d8323a" stroke-width="3.5" stroke-dasharray="6 5"/><circle cx="150" cy="268" r="5" fill="#d8323a"/></g>`;
+const HOOD = { top: 'suit', topC: '#5b4bc4', sleeve: 'long', bottom: '#2c3550', shoes: '#f4f2ec', sole: '#5b4bc4', skin: '#f2c8a0', hair: 'none', headExtra: youHair, iris: '#3a2a20' };
+
 const CHARS = [
-  { id: 'goku_base', name: 'GOKU', sub: 'base · el que persigue', bg: '#1d3b2a', svg: () => person({ ...GI, top: 'goku', emblem: '悟', skin: GSKIN, hair: 'goku', hairC: '#17151a', hairHi: '#6c6a80', iris: '#1d1c22', mouth: 'smile' }) },
-  { id: 'goku_ssj', name: 'SUPER SAIYAJIN', sub: 'Goku · nivel 1', bg: '#3a3010', svg: () => person({ ...GI, top: 'goku', emblem: '亀', pose: 'guard', skin: GSKIN, hair: 'ssj', hairC: '#ffd23a', hairHi: '#fff6c4', brow: '#e0a91c', iris: '#18a39a', angry: true, mouth: 'grit', aura: '#ffd84a' }) },
-  { id: 'goku_dios', name: 'SSJ DIOS', sub: 'Goku · nivel dios', bg: '#3a1020', svg: () => person({ ...GI, top: 'goku', emblem: '悟', skin: '#f3c9a2', hair: 'goku', hairScale: .9, hairC: '#d6283f', hairHi: '#ff8a9a', brow: '#b81f33', iris: '#c4283a', calm: true, aura: '#ff3d5a', auraOp: .4 }) },
-  { id: 'goku_blue', name: 'SSJ BLUE', sub: 'Goku · dios + saiyajin', bg: '#0f2a46', svg: () => person({ ...GI, top: 'goku', emblem: '悟', pose: 'guard', skin: GSKIN, hair: 'ssj', hairC: '#39b6f2', hairHi: '#c9f0ff', brow: '#1f8fd0', iris: '#2a7fd8', angry: true, mouth: 'smirk', aura: '#3fc3ff' }) },
-  { id: 'goku_ui', name: 'ULTRA INSTINTO', sub: 'Goku · dominado', bg: '#1c1f33', svg: () => person({ ...GI, top: 'bare', topC: GSKIN, bare: false, abs: true, sleeve: 'none', skin: GSKIN, hair: 'ui', hairC: '#dfe3ee', hairHi: '#ffffff', brow: '#aab3c6', iris: '#b9c3d6', noPupil: true, calm: true, aura: '#cfd8ff', auraOp: .35 }) },
-  { id: 'vegeta', name: 'VEGETA', sub: 'el rival · príncipe saiyajin', bg: '#151c3a', svg: () => person({ ...SAIYAN, pose: 'cross', armor: '#e6b43a', pads: '#e6b43a', skin: GSKIN, hair: 'vegeta', hairC: '#17151a', hairHi: '#6c6a80', iris: '#1d1c22', angry: true, mouth: 'smirk' }) },
-  { id: 'vegeta_blue', name: 'VEGETA BLUE', sub: 'siempre lo alcanza', bg: '#0f2a46', svg: () => person({ ...SAIYAN, pose: 'guard', armor: '#e6b43a', skin: GSKIN, hair: 'vegeta', hairC: '#39b6f2', hairHi: '#c9f0ff', brow: '#1f8fd0', iris: '#2a7fd8', angry: true, mouth: 'grit', aura: '#3fc3ff' }) },
-  { id: 'majin_vegeta', name: 'MAJIN VEGETA', sub: 'el lado oscuro del rival', bg: '#2a0f2a', svg: () => person({ ...SAIYAN, sleeve: 'none', bare: false, skin: GSKIN, hair: 'vegeta', hairC: '#ffd23a', hairHi: '#fff6c4', brow: '#e0a91c', iris: '#18a39a', angry: true, veins: true, majinM: true, mouth: 'smirk', aura: '#ffd84a', auraOp: .4, behind: `<path d="M120,200 L40,150 L90,260 L20,300 L110,330 Z M280,200 L360,150 L310,260 L380,300 L290,330 Z" fill="#7a1f6b" fill-opacity=".5"/>` }) },
-  { id: 'babidi', name: 'BABIDI', sub: 'el mago que lo controló', bg: '#1f1330', svg: babidi },
-  { id: 'whis', name: 'WHIS', sub: 'el maestro de los dos', bg: '#1b2440', svg: () => person({ topC: '#6e1d2c', bottom: '#6e1d2c', robe: '#17151c', sleeve: 'long', cuff: '#17151c', skin: '#a8c3e8', shoes: '#f4f2ec', hair: 'none', iris: '#7b4fc0', calm: true, mouth: 'smile', lips: '#7b4fc0', ring: '#2f9be6', headExtra: whisHair, over: whisStaff }) },
-  { id: 'corredor', name: 'TÚ', sub: 'corredor · estudio de rivalidad', bg: '#2a1616', svg: () => person({ top: 'tank', topC: '#d8323a', bottom: '#b67b52', bare: true, shorts: '#1f2026', skin: '#b67b52', hair: 'none', headExtra: `<path d="M153,144 Q148,84 200,82 Q252,84 247,144 Q240,112 200,110 Q160,112 153,144 Z" fill="#1f1b22" stroke="${OL}" stroke-width="3"/>`, iris: '#1d1c22', bib: '07', shoes: '#f4f2ec', sole: '#d8323a', angry: true, mouth: 'grit' }) },
-  { id: 'rival', name: 'TU RIVAL', sub: 'corredor · 5 s/km más rápido', bg: '#141c2e', svg: () => person({ top: 'tank', topC: '#2f74c8', bottom: '#e0b48a', bare: true, shorts: '#1f2026', skin: '#e0b48a', hair: 'none', headExtra: `<path d="M152,146 Q144,76 200,74 Q258,76 248,146 Q246,108 228,100 L222,118 L210,98 L196,118 L186,98 L174,116 Q156,112 152,146 Z" fill="#5a3a22" stroke="${OL}" stroke-width="3"/>`, iris: '#1d1c22', bib: '23', shoes: '#f4f2ec', sole: '#2f74c8', angry: true, mouth: 'smirk' }) },
+  { id: 'zoro', name: 'RORONOA ZORO', sub: 'el espadachín · cazador de piratas', bg: '#14301f', svg: () => person({ ...ZORO, mid: zoroCoat(), over: swordsFront() }) },
+  { id: 'zoro_cross', name: 'ZORO · AURA', sub: '"no es tonto": mi opinión', bg: '#0f2a1c', svg: () => person({ ...ZORO, pose: 'cross', mouth: 'smirk', behind: aura('#4fe07a', .4) + swordsBack(), mid: zoroCoat(), over: swordsFront() }) },
+  { id: 'zoro_lost', name: 'ZORO PERDIDO', sub: 'se pierde hasta en línea recta', bg: '#2b2a12', svg: () => person({ ...ZORO, pose: 'scratch', angry: false, lookX: -4, mouth: 'flat', mid: zoroCoat(), over: swordsFront() + qMarks }) },
+  { id: 'taxista', name: 'TAXISTA DE LONDRES', sub: '25 000 calles en la cabeza', bg: '#1a1d2c', svg: () => person({ top: 'suit', topC: '#2e3a52', sleeve: 'long', bottom: '#23252e', shoes: '#16161c', skin: '#efc29c', hair: 'none', headExtra: capTaxi, iris: '#4a5a7a', mouth: 'smile', pose: 'point', over: `<path d="M178,224 L200,262 L222,224" fill="#e9e6df" stroke="${OL}" stroke-width="2.6"/><path d="M196,236 L204,236 L206,300 L200,310 L194,300 Z" fill="#8e1f27" stroke="${OL}" stroke-width="2"/>` }) },
+  { id: 'tu_gps', name: 'TÚ CON GPS', sub: 'solo obedeces las flechas', bg: '#10243a', svg: () => person({ ...HOOD, pose: 'phone', lookY: 4, lookX: 2, calm: true, mouth: 'flat', over: phone }) },
+  { id: 'tu_mapa', name: 'TÚ SIN GPS', sub: 'mapa mental activado', bg: '#2a1830', svg: () => person({ ...HOOD, pose: 'point', angry: true, mouth: 'grit', aura: '#ffd23a', auraOp: .3, over: mapPaper }) },
 ];
