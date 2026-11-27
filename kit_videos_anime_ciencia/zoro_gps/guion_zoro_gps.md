@@ -45,3 +45,18 @@ Porque Zoro se pierde hasta en línea recta… y tú vas por el mismo camino.
 ## TÍTULO Y HASHTAGS
 **Título:** Zoro no es tonto… el que se está quedando sin cerebro eres tú 🧭
 **Hashtags:** #onepiece #zoro #roronoazoro #anime #otaku #ciencia #cerebro #googlemaps #datoscuriosos #fyp
+
+---
+
+## PUBLICACIÓN (títulos, descripción, hashtags)
+
+1. ⭐ **Zoro no es tonto… el que se está quedando sin cerebro eres tú 🧭** (recomendado)
+2. Google Maps te está convirtiendo en Zoro (y la ciencia lo prueba) 🗺️
+3. Por qué Zoro se pierde hasta en línea recta 🧠⚔️
+4. El GPS le está apagando una parte del cerebro a tu amigo Zoro 😳
+5. Los taxistas de Londres tienen el cerebro más grande… y tú usas GPS 🚕
+
+**Descripción:**
+Zoro se pierde hasta en línea recta… pero la ciencia dice que el GPS te está haciendo lo mismo a ti 🧭 Los taxistas de Londres tienen más grande el hipocampo (Maguire, PNAS 2000) y quienes más usan GPS pierden más memoria espacial (McGill, Scientific Reports 2020). Te dejo 3 pasos para entrenar tu Haki de orientación ⚔️ ¿Quién es el Zoro de tu grupo? Etiquétalo 👇
+
+**Hashtags:** #onepiece #zoro #roronoazoro #anime #otaku #ciencia #cerebro #googlemaps #datoscuriosos #fyp
