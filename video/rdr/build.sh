@@ -8,6 +8,7 @@ cd "$(dirname "$0")"
 node "$R" meta > "$WORK/meta.txt"
 python3 sfx_rdr.py "$WORK"
 VCUT=$(awk '/^VCUT/{print $2}' "$WORK/meta.txt")
+MS=$(awk '/^VSTART/{print $2}' "$WORK/meta.txt"); VSTART=${MS:-$VSTART}
 FR=$(awk '/^DUR/{print $4}' "$WORK/meta.txt"); DUR=$(awk '/^DUR/{print $2}' "$WORK/meta.txt")
 P=4; STEP=$(( (FR + P - 1) / P ))
 for i in $(seq 0 $((P-1))); do

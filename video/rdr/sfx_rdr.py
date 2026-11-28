@@ -146,11 +146,128 @@ def steps():
     return norm(out, .55)
 
 
+# ---------------------------------------------------------------- partes 2-5
+def punch():
+    d = .35; t = t_(d); return norm(band(noise(d), 60, 900) * np.exp(-t * 22) * 1.3 + sweep(160, 50, d) * np.exp(-t * 14), .95)
+def laugh():   # risas graves "ja ja ja"
+    out = np.zeros(int(1.4 * SR))
+    for i in range(5):
+        d = .16; t = t_(d); f = 140 - i * 6; v = (np.sin(2 * np.pi * f * t) + .5 * np.sin(2 * np.pi * f * 2 * t) + .3 * np.sin(2 * np.pi * f * 3 * t))
+        mixat(out, band(v + .4 * noise(d), 100, 2500) * np.sin(np.pi * t / d), i * .22)
+    return norm(out, .6)
+def glass():
+    out = np.zeros(int(.8 * SR))
+    for i in range(9): f = 2500 + rng.random() * 4500; mixat(out, tone(f, .25) * expd(int(.25 * SR), 20), rng.random() * .15)
+    mixat(out, band(noise(.2), 2000, 9000) * expd(int(.2 * SR), 25), 0); return norm(out, .55)
+def cards():
+    out = np.zeros(int(.6 * SR))
+    for i in range(6): mixat(out, band(noise(.03), 1500, 6000) * expd(int(.03 * SR), 120), i * .06)
+    return norm(out, .55)
+def chalk(d=.9):
+    t = t_(d); x = band(noise(d), 2500, 7000) * (.4 + .6 * (np.sin(2 * np.pi * 5 * t) > 0)); return norm(x * env(len(t), .01, .1), .35)
+def riser():
+    d = 1.2; t = t_(d); return norm((band(noise(d), 300, 5000) * .5 + sweep(200, 900, d) * .4) * (t / d) ** 2, .6)
+def anger():
+    d = .4; t = t_(d); return norm(np.sign(np.sin(2 * np.pi * 90 * t)) * np.exp(-t * 6) * .6 + sweep(600, 300, d) * .4 * np.exp(-t * 5), .5)
+def scribble1(): return scribble(1.0)
+def heartbeat():
+    out = np.zeros(int(1.6 * SR))
+    for at in (0, .28, .8, 1.08): d = .15; t = t_(d); mixat(out, np.sin(2 * np.pi * 55 * t) * np.exp(-t * 25), at)
+    return norm(out, .8)
+def door():
+    d = 1.0; t = t_(d); f = 300 + 120 * np.sin(2 * np.pi * 1.3 * t); x = np.sin(2 * np.pi * np.cumsum(f) / SR) * band(noise(d), 200, 3000) * .5
+    return norm(x * env(len(t), .05, .3), .5)
+def heartbreak():
+    out = np.zeros(int(1.4 * SR)); mixat(out, band(noise(.08), 1000, 6000) * expd(int(.08 * SR), 40), 0)
+    mixat(out, (tone(392, 1.2) + tone(370, 1.2)) * expd(int(1.2 * SR), 2.5) * .5, .05); return norm(out, .6)
+def deflate():
+    d = .6; return norm(sweep(700, 150, d) * np.exp(-t_(d) * 3) * .6 + band(noise(d), 500, 2000) * .2, .5)
+def trainHorn():
+    d = 1.8; t = t_(d); x = sum(np.sin(2 * np.pi * f * t) for f in (311, 370, 466)) * env(len(t), .1, .5); return norm(band(x, 100, 3000), .5)
+def telegraph():
+    out = np.zeros(int(1.2 * SR))
+    for i, dd in enumerate([.06, .06, .18, .06, .18]): mixat(out, np.sin(2 * np.pi * 800 * t_(dd)) * env(int(dd * SR), .002, .01), i * .2)
+    return norm(out, .4)
+def gunfight():
+    out = np.zeros(int(3.2 * SR)); g = gunshot()
+    for i in range(9): mixat(out, g * (.4 + rng.random() * .6), i * .32 + rng.random() * .12)
+    return norm(out, .9)
+def scream():
+    d = .9; t = t_(d); f = 700 + 300 * np.sin(2 * np.pi * 5 * t) * np.exp(-t * 2); v = np.sin(2 * np.pi * np.cumsum(f) / SR)
+    return norm(band(v + .3 * noise(d), 300, 4000) * env(len(t), .05, .4) * .5, .45)
+def rain(d=6.0):
+    x = band(noise(d), 1500, 8000) * .4
+    for _ in range(int(d * 40)): mixat(x, band(noise(.01), 2000, 8000) * expd(int(.01 * SR), 200) * rng.random(), rng.random() * d)
+    return norm(x * env(len(x), .5, 1.5), .35)
+def blizzard(d=5.0):
+    t = t_(d); x = band(noise(d), 300, 3000) * (.6 + .4 * np.sin(2 * np.pi * .5 * t)); return norm(x * env(len(t), .6, 1.5), .5)
+def growl():
+    d = 1.6; t = t_(d); x = band(noise(d), 60, 500) * (1 + np.sin(2 * np.pi * 28 * t)) * env(len(t), .2, .5); return norm(x, .7)
+def howl():
+    d = 2.4; t = t_(d); f = 450 + 250 * np.sin(np.pi * t / d); x = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.sin(np.pi * t / d)
+    return norm(x + .1 * band(noise(d), 400, 2000), .4)
+def snowSteps():
+    out = np.zeros(int(4.0 * SR))
+    for k in range(9): mixat(out, band(noise(.12), 800, 5000) * np.hanning(int(.12 * SR)), k * .42)
+    return norm(out, .4)
+def ding(): return norm((tone(1568, 1.0) + .5 * tone(3136, 1.0)) * expd(int(SR), 5), .55)
+def wipe():
+    d = .4; return norm(band(noise(d), 1500, 6000) * np.hanning(int(d * SR)), .35)
+def horse():
+    d = 1.0; t = t_(d); f = 400 + 300 * np.abs(np.sin(2 * np.pi * 6 * t)) * np.exp(-t * 2); return norm(np.sin(2 * np.pi * np.cumsum(f) / SR) * env(len(t), .05, .3) * .6 + band(noise(d), 300, 2000) * .2, .45)
+def city(d=5.0):
+    x = band(noise(d), 150, 1200) * .3
+    for _ in range(14): mixat(x, gallop(1.0) * .15, rng.random() * (d - 1))
+    return norm(x * env(len(x), .5, 1.2), .3)
+def tramBell(): return norm(sum(tone(f, 1.0) * expd(int(SR), 5) for f in (1318, 1760)) + np.roll(sum(tone(f, 1.0) * expd(int(SR), 5) for f in (1318, 1760)), int(.25 * SR)), .45)
+def whistle():
+    d = 1.0; t = t_(d); f = 2800 + 200 * np.sign(np.sin(2 * np.pi * 14 * t)); return norm(np.sin(2 * np.pi * np.cumsum(f) / SR) * env(len(t), .02, .1), .4)
+def thunder():
+    d = 3.0; t = t_(d); return norm(band(noise(d), 30, 400) * np.exp(-t * 1.2) * (1 + .5 * np.sin(2 * np.pi * 3 * t)), .9)
+def seagull():
+    out = np.zeros(int(1.4 * SR))
+    for at in (0, .4): d = .3; t = t_(d); f = 1800 - 600 * t / d; mixat(out, np.sin(2 * np.pi * np.cumsum(f) / SR) * np.sin(np.pi * t / d), at)
+    return norm(out, .35)
+def waves(d=6.0):
+    t = t_(d); return norm(band(noise(d), 200, 2000) * (.5 + .5 * np.sin(2 * np.pi * .35 * t) ** 2) * env(len(t), 1.0, 2.0), .4)
+def breath():
+    d = 1.4; t = t_(d); return norm(band(noise(d), 300, 3000) * (np.sin(np.pi * t / .6) ** 2 * (t < .6) + .6 * np.sin(np.pi * (t - .7) / .7) ** 2 * (t > .7)), .45)
+def clock():
+    out = np.zeros(int(2.0 * SR))
+    for i in range(4): mixat(out, band(noise(.02), 2000, 6000) * expd(int(.02 * SR), 150), i * .5)
+    return norm(out, .45)
+def jail():
+    out = np.zeros(int(1.2 * SR)); mixat(out, (tone(220, 1.0) + .6 * tone(331, 1.0) + .4 * tone(587, 1.0)) * expd(int(SR), 5), 0)
+    mixat(out, band(noise(.1), 400, 4000) * expd(int(.1 * SR), 30), 0); return norm(out, .6)
+def rip():
+    d = .6; return norm(band(noise(d), 1000, 7000) * (np.abs(np.sin(t_(d) * 90)) ** 4) * env(int(d * SR), .01, .2), .55)
+def whisper():
+    d = 1.6; t = t_(d); return norm(band(noise(d), 2000, 8000) * (.5 + .5 * np.sin(2 * np.pi * 4 * t)) * env(len(t), .1, .4), .3)
+def squeak():
+    out = np.zeros(int(.6 * SR))
+    for at in (0, .2): d = .12; mixat(out, sweep(3000, 4200, d) * np.hanning(int(d * SR)), at)
+    return norm(out, .4)
+def siren():
+    d = 3.0; t = t_(d); f = 700 + 250 * np.sin(2 * np.pi * .8 * t); return norm(np.sin(2 * np.pi * np.cumsum(f) / SR) * env(len(t), .5, 1.0), .3)
+def tick(): return norm(band(noise(.02), 2000, 6000) * expd(int(.02 * SR), 150), .45)
+def chime(): return norm(sum(tone(f, 1.6) * expd(int(1.6 * SR), 3) * a for f, a in [(1046, 1), (1318, .7), (1568, .5)]), .4)
+def thud():
+    d = .4; t = t_(d); return norm(band(noise(d), 40, 400) * np.exp(-t * 14) + np.sin(2 * np.pi * 60 * t) * np.exp(-t * 12), .8)
+def silence(): return np.zeros(int(.1 * SR)) + 1e-6
+
+
 LIB = {'whoosh': whoosh, 'pop': pop, 'thunk': thunk, 'paper': paper, 'pageflip': pageflip, 'cash': cash, 'coins': coins,
        'clink': clink, 'gunshot': gunshot, 'gunCock': gunCock, 'cough': cough, 'buzz': buzz, 'stinger': stinger, 'boom': boom,
        'gallop': gallop, 'crackle': crackle, 'puff': puff, 'squish': squish, 'sparkle': sparkle, 'shimmer': shimmer,
        'shimmerDown': lambda: shimmer(True), 'bell': bell, 'blow': blow, 'hiccup': hiccup, 'camera': camera, 'wind': wind,
-       'scribbleLong': scribble, 'steps': steps}
+       'scribbleLong': scribble, 'steps': steps,
+       'punch': punch, 'laugh': laugh, 'glass': glass, 'cards': cards, 'chalk': chalk, 'riser': riser, 'anger': anger,
+       'scribble': scribble1, 'heartbeat': heartbeat, 'door': door, 'heartbreak': heartbreak, 'shimmerBig': lambda: shimmer(False),
+       'deflate': deflate, 'trainHorn': trainHorn, 'telegraph': telegraph, 'gunfight': gunfight, 'scream': scream, 'rain': rain,
+       'blizzard': blizzard, 'growl': growl, 'howl': howl, 'snowSteps': snowSteps, 'ding': ding, 'wipe': wipe, 'horse': horse,
+       'city': city, 'tramBell': tramBell, 'whistle': whistle, 'thunder': thunder, 'seagull': seagull, 'waves': waves,
+       'breath': breath, 'clock': clock, 'jail': jail, 'rip': rip, 'whisper': whisper, 'squeak': squeak, 'siren': siren,
+       'tick': tick, 'chime': chime, 'thud': thud, 'silence': silence}
 
 N = int((DUR + 3) * SR)
 L = np.zeros(N); R = np.zeros(N); cache = {}
