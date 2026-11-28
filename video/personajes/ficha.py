@@ -18,7 +18,7 @@ for f, name, col, dark in items:
     glow = Image.new('RGBA', (W, H)); ImageDraw.Draw(glow).ellipse([60, 160, 660, 960], fill=hexc(col, 200))
     c.alpha_composite(glow.filter(ImageFilter.GaussianBlur(90)))
     ch = Image.open(f + '.png'); ch = ch.resize((int(ch.width * 0.6), int(ch.height * 0.6)))
-    c.alpha_composite(ch, ((W - ch.width) // 2, 80))
+    c.alpha_composite(ch, ((W - ch.width) // 2, 80))  # lienzo ancho centrado
     tw = d.textlength(name, font=F)
     d.text(((W - tw) / 2, 1160), name, font=F, fill='white', stroke_width=6, stroke_fill='black')
     cards.append(c)

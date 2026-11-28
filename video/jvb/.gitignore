@@ -1,0 +1,3 @@
+work/*
+!work/words.json
+!work/tr.py

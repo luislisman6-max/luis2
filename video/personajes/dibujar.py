@@ -107,14 +107,15 @@ def jiren_eyes(cx, y, sep=44, skin='#e9e9ef'):
         out.append(line([(x - 18 * s, y - 18), (x + 22 * s, y - 30)], K, 6))
     return ''.join(out)
 
-def svg_wrap(body, w=600, h=1000):
-    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}">{body}</svg>'
+def svg_wrap(body, w=1000, h=1000):
+    # lienzo ancho (x de -200 a 800) para que quepan los brazos estirados; ancla de los pies = (500, 915) px/2
+    return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="-200 0 {w} {h}" width="{w}" height="{h}">{body}</svg>'
 
 # ---------------------------------------------------------------- BROLY
 SKIN_B = '#f3b88a'; SKIN_B_SH = '#d58e5e'
 PURP = '#7a3cb3'; GREEN_FUR = '#8fd63a'; GREEN_FUR_SH = '#5fa627'
 
-def broly(form='legendario'):
+def broly(form='legendario', punch=0):
     cx = 300
     hair = {'base': ('#1b1b20', '#3a3a48'), 'ssj': ('#ffd83a', '#e8a21a'), 'legendario': ('#a6ea3c', '#6bb82a')}[form]
     big = form == 'legendario'
@@ -135,8 +136,9 @@ def broly(form='legendario'):
     # brazos (detrás del torso)
     sleeve = None
     for s in (-1, 1):
-        g.append(arm(s, cx + s * (shoulder_w + 6), torso_top + 30, SKIN_B, ang=20, up_len=130 if big else 118,
-                     fo_len=125 if big else 112, w=74 if big else 62, flex=-6))
+        p = s == punch
+        g.append(arm(s, cx + s * (shoulder_w + 6), torso_top + 30, SKIN_B, ang=86 if p else 20, up_len=130 if big else 118,
+                     fo_len=125 if big else 112, w=74 if big else 62, flex=0 if p else -6))
     # cuello
     g.append(rrect(cx - (40 if big else 32), 300, 80 if big else 64, 80, 10, SKIN_B))
     # torso
@@ -208,7 +210,7 @@ def broly(form='legendario'):
 J_SKIN = '#e9e9ef'; J_SH = '#b9b9c6'; J_RED = '#d9263a'; J_RED_SH = '#9c1424'
 J_SKIN_RED = '#e4566a'; J_SKIN_RED_SH = '#b23348'
 
-def jiren(form='normal'):
+def jiren(form='normal', punch=0):
     cx = 300
     red = form == 'rojo'
     skin = J_SKIN_RED if red else J_SKIN
@@ -220,8 +222,9 @@ def jiren(form='normal'):
         g.append(leg(s, cx + s * 52, 588, '#1b1b20', '#f2f2f5', '#bfc0c8', L=262, w=84))
     # brazos
     for s in (-1, 1):
-        g.append(arm(s, cx + s * 150, torso_top + 40, skin if red else '#1b1b20', ang=12, up_len=125, fo_len=118, w=66,
-                     band=None, glove='#f2f2f5' if not red else skin, flex=-4))
+        p = s == punch
+        g.append(arm(s, cx + s * 150, torso_top + 40, skin if red else '#1b1b20', ang=86 if p else 12, up_len=125, fo_len=118, w=66,
+                     band=None, glove='#f2f2f5' if not red else skin, flex=0 if p else -4))
     # cuello
     g.append(rrect(cx - 30, 320, 60, 70, 10, skin))
     # torso
@@ -272,13 +275,18 @@ CHARS = {
     'broly_legendario': lambda: broly('legendario'),
     'jiren': lambda: jiren('normal'),
     'jiren_rojo': lambda: jiren('rojo'),
+    'jiren_golpe': lambda: jiren('normal', 1),
+    'jiren_rojo_golpe': lambda: jiren('rojo', 1),
+    'broly_base_golpe': lambda: broly('base', -1),
+    'broly_ssj_golpe': lambda: broly('ssj', -1),
+    'broly_legendario_golpe': lambda: broly('legendario', -1),
 }
 
 if __name__ == '__main__':
     for name, fn in CHARS.items():
         open(os.path.join(OUT, name + '.svg'), 'w').write(fn())
     js = """const {chromium}=require('playwright');const fs=require('fs');(async()=>{const b=await chromium.launch();
-const p=await b.newPage({viewport:{width:600,height:1000},deviceScaleFactor:2});
+const p=await b.newPage({viewport:{width:1000,height:1000},deviceScaleFactor:2});
 for(const n of %s){await p.setContent('<html><body style="margin:0;background:transparent">'+fs.readFileSync('%s/'+n+'.svg','utf8')+'</body></html>');
 await p.locator('svg').screenshot({path:'%s/'+n+'.png',omitBackground:true});console.log('ok',n);}await b.close();})();""" % (json.dumps(list(CHARS)), OUT, OUT)
     subprocess.run(['node', '-e', js], check=True)
