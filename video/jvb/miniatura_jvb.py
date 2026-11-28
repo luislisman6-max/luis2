@@ -63,6 +63,26 @@ def thumb():
     return img
 
 
+def cover34():
+    w, h = 1080, 1440
+    img, _ = split_bg(w, h, 120)
+    speedlines(img, 1.0, '#ffffff', 70, 540, 700, 50)
+    crack_line(img, w, h, 120)
+    g = layer(w, h); ImageDraw.Draw(g).ellipse([380, 420, 1180, 1220], fill=rgba('#8aff3a', 170)); img.alpha_composite(blur(g, 90))
+    g = layer(w, h); ImageDraw.Draw(g).ellipse([-100, 820, 620, 1500], fill=rgba('#ff3a3a', 170)); img.alpha_composite(blur(g, 90))
+    head(img, 'broly_legendario', 770, 790, 1.08)
+    head(img, 'jiren_rojo', 290, 1100, 0.88)
+    star(img, 500, 990, 1.0, 0.92, 250, '#ffffff', '#d8b0ff')
+    for k in range(3): lightning(img, 500, 990, random.Random(k).uniform(560, 1000), random.Random(k + 20).uniform(1150, 1400), k, w=6, jit=40)
+    text(img, 'VS', WHITE, 500, 990, 130, 0, 13)
+    text(img, '¿QUIÉN', WHITE, 470, 175, 200, 4)
+    text(img, 'CAE PRIMERO?', GOLD, 540, 365, 150, 4)
+    text(img, 'BROLY', GREEN, 830, 1240, 140, -4, 13)
+    text(img, 'JIREN', RED, 270, 1340, 130, 5, 13)
+    return img
+
+
 if __name__ == '__main__':
     cover().convert('RGB').save('PORTADA_TIKTOK_1080x1920.png')
     thumb().convert('RGB').save('MINIATURA_YOUTUBE_1280x720.jpg', quality=95)
+    cover34().convert('RGB').save('MINIATURA_3x4_1080x1440.jpg', quality=95)
